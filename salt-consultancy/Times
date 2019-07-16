@@ -1,0 +1,93 @@
+Routing:
+Started at 10:21
+
+
+<div className="App">
+      <header className="App-header">
+        <h1>
+          Salt Consultancy
+        </h1>
+        <h3>JavaScript Full-Stack Developers for You!</h3>
+      </header>
+   <ul>
+        {hits.map(user =>
+        <div key={user.id}>
+          <li>{user.id}</li>
+          <li>{user.username}</li>
+          <li>{user.password}</li>
+        </div>
+        )}
+      </ul>
+    </div>
+
+
+    // import
+
+
+// const Login = () => {
+//   return (
+
+//     <div>
+//       <form onSubmit={this.handleSubmit}>
+//         <div className="imgcontainer">
+//         </div>
+//         <div className="container">
+//           <label htmlFor="uname"><b>Username</b></label>
+//           <input type="text" placeholder="Enter Username" name="uname" required /><br></br>
+//           <label htmlFor="psw"><b>Password</b></label>
+//           <input type="password" placeholder="Enter Password" name="psw" required /><br></br>
+//           <button type="submit">Login</button>
+//           <label>
+//             <input type="checkbox" defaultChecked="checked" name="remember" /> Remember me
+//                 </label>
+//         </div>
+//         <div className="container">
+//         </div>
+//       </form>
+//     </div>
+//   );
+// }
+
+
+const Login = props => {
+  const [username, setUsername] = useState()
+  const [password, setPassword] = useState()
+
+  const handleChangeUsername = e => {
+    setUsername(e.target.value);
+  }
+
+  const handleChangePassword = e => {
+    setPassword(e.target.value);
+  }
+
+  const handleSubmit = event => {
+    fetch('/api/login', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({username, password})
+    }).then(response => response.text())
+    .then(data => console.log(data));
+    // window.location = '/';
+    
+    event.preventDefault();
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      Username:
+        <input
+        type="text"
+        onChange={handleChangeUsername}
+      />
+      Password:
+        <input
+        type="password"
+        onChange={handleChangePassword}
+      />
+      <button type="submit">Login</button>
+    </form>
+  );
+}

@@ -3,18 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "pg": "^7.11.0",
     "react": "^16.8.6",
+    "react-cookie": "^4.0.1",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
+    "all": "concurrently \"start\" \"docker\" \"server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "node ./server/index.js"
+    "server": "nodemon ./server/index.js",
+    "predocker": "docker run --name salt-consultancy -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres",
+    "docker": "docker start salt-consultancy"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -31,5 +37,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
