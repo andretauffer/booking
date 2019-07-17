@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Link } from "react-router-dom";
-import { CookiesProvider, withCookies, useCookies } from 'react-cookie';
+import './Calendar.css';
+import { BrowserRouter, Route } from "react-router-dom";
+import { CookiesProvider } from 'react-cookie';
 import Home from './components/Home';
 import About from './components/About';
 import Contact from './components/Contact';
 import Developers from './components/Developers';
 import Booking from './components/Booking';
 import Projects from './components/Projects';
-import Login from './components/Login';
 import Blog from './components/Blog';
 import CustomNavbar from './components/Navbar';
 

@@ -1,7 +1,7 @@
-import { Navbar, NavItem, NavDropdown, MenuItem, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import React, { Component } from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+import React from 'react';
 import Login from './Login';
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { LinkContainer } from 'react-router-bootstrap';
 
 const CustomNavbar = () => {
   return (
@@ -10,13 +10,13 @@ const CustomNavbar = () => {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link><Link to="/">Home</Link></Nav.Link>
-        <Nav.Link><Link to="/developers">Developers</Link></Nav.Link>
-        <Nav.Link><Link to="/projects">Projects</Link></Nav.Link>
-        <Nav.Link><Link to="/booking">Booking</Link></Nav.Link>
-        <Nav.Link><Link to="/contact">Contact</Link></Nav.Link>
-        <Nav.Link><Link to="/blog">Blog</Link></Nav.Link>
-        <Nav.Link><Link to="/about">About</Link></Nav.Link>
+        <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
+        <LinkContainer to="/developers"><Nav.Link>Developers</Nav.Link></LinkContainer> 
+        <LinkContainer to="/projects"><Nav.Link>Projects</Nav.Link></LinkContainer>
+        <LinkContainer to="/booking"><Nav.Link>Booking</Nav.Link></LinkContainer>
+        <LinkContainer to="/contact"><Nav.Link>Contact</Nav.Link></LinkContainer>
+        <LinkContainer to="/blog"><Nav.Link>Blog</Nav.Link></LinkContainer>
+        <LinkContainer to="/about"><Nav.Link>About</Nav.Link></LinkContainer>
       </Nav>
       <Login/>
     </Navbar.Collapse>

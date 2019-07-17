@@ -1,37 +1,17 @@
-import React, {
-  Component
-} from 'react';
+import React from 'react';
+import Calendar from './Calendar';
 
-class Booking extends Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      hits: [],
-    };
-  }
-  componentDidMount() {
-    fetch('/api/getList')
-      .then(response => response.json())
-      .then(data => this.setState({ hits: data }));
-  }
-  render() {
-    const { hits } = this.state;
-    return(
-<div className="BookingContainer">
-   <ul>
-        {hits.map(user =>
-        <div key={user.id}>
-          <li>{user.id}</li>
-          <li>{user.username}</li>
-          <li>{user.password}</li>
-        </div>
-        )}
-      </ul>
+function Booking() {
+  return (
+    <div>
+      <Calendar />
+      <div className="BookingContainer">
+        <br></br>
+        <h2>By Brigadeiro</h2>
+      </div>
     </div>
-    )
+  )
 }
-}
-
 
 export default Booking;

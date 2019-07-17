@@ -8,13 +8,13 @@ body {
 }
 
 .App-header {
-  background-color: #0dff00;
+  background-color: hsl(203, 100%, 50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: black;
+  color: white;
   height: 200px;
   margin: 0 auto;
   margin-top: 15px;
