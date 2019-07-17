@@ -1,7 +1,11 @@
 import React, {
   useState, useEffect
 } from 'react';
-import { Button } from 'react-bootstrap';
+
+function compare(a,b){
+  let order = parseInt(a.day) < parseInt(b.day) ? -1 : 1;
+  return order;
+}
 
 
 const Calendar = () => {
@@ -11,7 +15,10 @@ const Calendar = () => {
   useEffect(() => {
     fetch('/api/getCalendar')
       .then(response => response.json())
-      .then(data => setCalendar(data))
+      .then(data => {
+        data.sort(compare);
+        setCalendar(data)
+      });
   }, []);
 
   function book(e, date) {
