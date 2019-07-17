@@ -48,10 +48,8 @@ const Calendar = () => {
 
   return (
     <div>
-      <h1>Calendar</h1>
-      <p>The totally awesoome bookingsystem</p>
       <div className="grid-container">
-        <div>Monday</div><div>Tuesday</div><div>Wednesday</div><div>Thursday</div><div>Friday</div><div>Saturday</div><div>Sunday</div>
+        <div className='weekday'>Monday</div><div className='weekday'>Tuesday</div><div className='weekday'>Wednesday</div><div className='weekday'>Thursday</div><div className='weekday'>Friday</div><div className='weekday'>Saturday</div><div className='weekday'>Sunday</div>
         {calendar.map((date, i) => {
           if (date.availability === 1) {
             return <div onClick={(e) => book(e, date.day)} key={i}>{date.day}</div>
