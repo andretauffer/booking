@@ -19,6 +19,10 @@
 .booked {
   background-color: hsl(350, 81%, 59%);
 }
+
+.selected {
+  background-color: lightblue;
+}
 .weekday {
   background-color: #c4dce4;
 }

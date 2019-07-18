@@ -2,12 +2,6 @@ import React, {
   useState, useEffect
 } from 'react';
 
-function compare(a,b){
-  let order = parseInt(a.day) < parseInt(b.day) ? -1 : 1;
-  return order;
-}
-
-
 const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [booked, setBooked] = useState([]);
@@ -17,33 +11,34 @@ const Calendar = () => {
       .then(response => response.json())
       .then(data => {
         data.sort(compare);
-        setCalendar(data)
+        setCalendar(data);
       });
   }, []);
 
-  function book(e, date) {
-    if (e.target.style.backgroundColor === 'rgb(13, 255, 0)') {
-      e.target.style.backgroundColor = 'transparent';
-    } else {
-      e.target.style.backgroundColor = '#0dff00';
-    }
+  const compare = (a, b) => {
+    let order = parseInt(a.day) < parseInt(b.day) ? -1 : 1;
+    return order;
+  }
+
+  const book = (e, date) => {
+    e.target.className = e.target.className === 'selected' ? '' : 'selected'; 
     const a = [...booked];
     a.indexOf(date) === -1 ? a.push(date) : a.splice(a.indexOf(date), 1);
     setBooked(a);
-    console.log(booked);
   }
 
-  function aaaa() {
-    fetch('/db/updateCalendar', {
+  const bookDays = async () => {
+    await fetch('/db/updateCalendar', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(booked)
     }).then(response => response.json())
-      .then(data => console.log(data));
-
-    console.log(booked);
+      .then(data => {
+        data.sort(compare);
+        setCalendar(data);
+      });
   }
 
   return (
@@ -60,7 +55,7 @@ const Calendar = () => {
         })
         }
       </div>
-      <button onClick={() => aaaa()}>Book now</button>
+      <button onClick={() => bookDays()}>Book now</button>
     </div>
   );
 }
