@@ -29,6 +29,10 @@ body {
   align-items: center;
 }
 
+.Welcome p {
+  margin: 0 auto;
+}
+
 .Welcome button {
   margin-left: 10px;
   border-radius: 10px;

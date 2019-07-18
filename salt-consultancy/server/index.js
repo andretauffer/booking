@@ -28,7 +28,6 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.json());
 
-// An api endpoint that returns a short list of items
 
 app.post('/api/login', async (req, res) => {
     // validate against database
@@ -51,10 +50,24 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.get('/api/getCalendar', async (req, res) => {
-    let month = await client.query('SELECT * FROM Calendar');
+app.get('/api/getCalendar/:year/:month', async (req, res) => {
+    let currMonth = req.params.month;
+    let currYear = req.params.year;
+    let month = await client.query(`SELECT * FROM Calendar WHERE month = ${currMonth} and year = ${currYear}`);
     res.send(JSON.stringify(month.rows));
 });
+
+app.post('/api/updateCalendar', async (req, res) => {
+    const change = req.body;
+    console.log(req.body);
+    await change.days.forEach(day => {
+      console.log(day);
+      client.query(`UPDATE Calendar SET availability = 0, customer = ${change.user} WHERE id = ${day.id}`);
+      console.log('heyi');
+    });
+    const resa = await client.query(`select * from Calendar WHERE month = ${change.month} and year = ${change.year} `);
+    res.send(resa.rows);
+  });
 
 app.use('/db', dbsetup);
 

@@ -1,0 +1,14 @@
+.grid-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 auto;
+  width: 75%;
+  justify-content: center;
+  /* grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: ". . ."; */
+}
+
+.grid-container img {
+  padding: 0px 20px 0px 20px;
+}

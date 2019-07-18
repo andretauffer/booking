@@ -1,4 +1,4 @@
-.grid-container {
+.grid-container1 {
   display: flex;
   width: 75%;
   margin: 0 auto;
@@ -8,16 +8,24 @@
   grid-template-areas: ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . .";
 }
 
-.grid-container div {
+.grid-container1   div {
   border: solid 1px lightseagreen;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80px;
 }
-
+.buttons button {
+  border-radius: 8px;
+  background-color: white;
+  margin: 5px 5px 5px 5px;
+}
 .booked {
   background-color: hsl(350, 81%, 59%);
+}
+
+.weekend {
+  background-color: lightgray;
 }
 
 .selected {

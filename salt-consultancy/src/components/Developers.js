@@ -5,7 +5,27 @@ const Developers = () => {
   return (
     <div>
   <h1>Developers</h1>
-    <img src="https://lh6.googleusercontent.com/iBN_WX-9T16CsQhMiRYbxps85f5S9GyUM90pY8kZUX6TXp-3HgSORiBlb3laWvZOwAStshPI8ykJtnbKmK9g6DRIcdeKem2eUduJAMNQB3wqW-x-wEkZGgQZTcAElpyrWT9Y7QdG"></img>
+  <div className="grid-container">
+    <div>
+    <img src="/img/andre.jpg"></img>
+    <h5>André Tauffer</h5>
+    <p>Skills:</p>
+    <p>None, don't hire</p>
+    </div>
+    <div>
+    <img src="/img/christian.jpg"></img>
+    <h5>Christian Sandström</h5>
+    <p>Skills:</p>
+    <p>Plenty, but not in JavaScript</p>
+    </div>
+    <div>
+    <img src="/img/chris.jpg"></img>
+    <h5>Christoffer Sundqvist</h5>
+    <p>Skills:</p>
+    <p>Can disappear</p>
+    </div>
+  </div>
+
   </div>
   );
 }

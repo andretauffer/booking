@@ -12,9 +12,9 @@ const client = new Client({
 });
 const connect = async () => {
   try {
-      await client.connect()
+    await client.connect()
   } catch (e) {
-      console.log('error', e);
+    console.log('error', e);
   }
 };
 
@@ -27,27 +27,16 @@ async function fetchData() {
           username varchar not null,
           password varchar not null
 );`)
-  // await client.query(`insert into Users(username, password) values ('Andre', 'brazil')`);
-  // await client.query(`insert into Users(username, password) values ('Chris', 'sweden')`);
-  // await client.query(`insert into Users(username, password) values ('Chris', 'england')`);
+
   const res = await client.query('select * from Users');
-  console.log(res.rows); // Hello world!
+  console.log(res.rows); 
   return res;
 }
- 
+
 
 //////
 
-router.post('/updateCalendar', async (req, res) => {
-  const change = req.body;
-  await change.forEach(date => {
-    console.log(date);
-    client.query(`UPDATE Calendar SET availability = 0 WHERE day = '${date}'`);
-  });
-  const resa = await client.query('select * from Calendar');
-  res.send(resa.rows);
 
-});
 
 /////
 
@@ -60,30 +49,40 @@ router.get('/createuser', async (req, res) => {
   await client.query(`insert into Users(username, password, name) values ('Salt', 'sales', 'salt')`);
 });
 
+
 router.get('/insertCal', async (req, res) => {
-  // await client.connect();
-  await client.query(`create table if not exists Calendar (
+  const resdb = await client.query(`create table if not exists Calendar (
     id serial primary key,
-    day varchar not null unique,
-    availability integer not null,
-    userbooked integer not null
+    date date not null,
+    year integer,
+    month integer,
+    day integer,
+    weekday integer,
+    availability integer,
+    customer integer
 );`);
-  for (let i = 1; i < 32; i++) {
-    let date = `${i}`;
+
     let boook = Math.round(Math.random());
-    await client.query(`insert into Calendar(day, availability, userbooked) values ('${date}', ${boook}, '4')`);
-  }
-  res.end();
+    await client.query(`insert into Calendar(date) values (generate_series('2019-01-01'::date,'2023-12-31'::date,'1 day'::interval))`);
+    res.send(resdb);
+  });
+  
+  router.get('/genData', async (req, res) => {
+    await client.query(`update Calendar set weekday = extract(isodow from date)`);
+    await client.query(`update Calendar set day = date_part('day', date)`);
+    await client.query(`update Calendar set month = date_part('month', date)`);
+    await client.query(`update Calendar set year = date_part('year', date)`);
+    await client.query(`update Calendar set availability = 1`);
+  res.send(res);
 });
 
+
 router.get('/getCal', async (req, res) => {
-  //await client.connect();
   const resa = await client.query('select * from Calendar');
   res.send(resa.rows);
 });
 
 router.get('/deleteCal', async (req, res) => {
-  //await client.connect()
 
   await client.query('DROP TABLE Calendar');
   res.end();
