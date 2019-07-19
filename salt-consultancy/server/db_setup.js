@@ -37,12 +37,11 @@ async function fetchData() {
   return res;
 }
 
+router.get('/deleteCal', async (req, res) => {
 
-//////
-
-
-
-/////
+  await client.query('DROP TABLE Calendar');
+  res.end();
+});
 
 router.get('/delete', async (req, res) => {
   console.log('Deleting table calendar');
@@ -97,8 +96,10 @@ router.get('/genData', async (req, res) => {
 });
 
 router.get('/initCal', async (req, res) => {
+  //delete existing calendar
   await client.query('DROP TABLE Calendar');
 
+  
   await client.query(`create table if not exists Calendar (
     id serial primary key,
     date date not null,
@@ -132,11 +133,6 @@ router.get('/getCal', async (req, res) => {
   res.send(resa.rows);
 });
 
-router.get('/deleteCal', async (req, res) => {
-
-  await client.query('DROP TABLE Calendar');
-  res.end();
-});
 
 router.get('/create', async (req, res) => {
   await client.query(`create table if not exists Users (

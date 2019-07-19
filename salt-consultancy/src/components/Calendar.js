@@ -4,7 +4,7 @@ import React, {
 
 const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
-  const [booked, setBooked] = useState([]);
+  const [selected, setSelected] = useState([]);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
   const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -51,19 +51,16 @@ const Calendar = () => {
     return order;
   }
 
-  const book = (e, dayData) => {
-    console.log(e, dayData);
-    e.target.className = e.target.className === 'selected' ? '' : 'selected';
-    const a = [...booked];
-    if (a.length === 0) a.push(dayData);
-    else {
-      let exist = 0;
-      a.forEach((day, i) => {
-        if (day.id === dayData.id) exist = i;
-      })
-      exist === 0 ? a.push(dayData) : a.splice(exist, 1);
+  const selectDays = (e, id) => {
+    const currSelection = [...selected];
+    if(currSelection.filter(el => el === id).length !== 0) {
+      currSelection.splice(currSelection.indexOf(id), 1)
+      e.target.className = '';
+    } else {
+      currSelection.push(id);
+      e.target.className = 'selected'
     }
-    setBooked(a);
+      setSelected(currSelection);
   }
 
   const changeMonth = val => {
@@ -86,7 +83,7 @@ const Calendar = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ days: booked, user: 4, month: month, year: 2019 })
+      body: JSON.stringify({ days: selected, user: 4, month: month, year: 2019 })
     }).then(response => response.json())
       .then(data => {
         data.sort(compare);
@@ -104,21 +101,21 @@ const Calendar = () => {
         <div className='weekday'>Monday</div><div className='weekday'>Tuesday</div><div className='weekday'>Wednesday</div><div className='weekday'>Thursday</div><div className='weekday'>Friday</div><div className='weekday'>Saturday</div><div className='weekday'>Sunday</div>
         {calendar.map((dayData, i) => {
           if (dayData.dummy) {
-            if (((i+1) % 7 === 0 || (i - 5) % 7 === 0)) {
+            if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
               return <div className="weekend" key={i}></div>
             } else {
-            return <div key={i}></div>
+              return <div key={i}></div>
             }
           }
           if (dayData.availability === 1) {
-            if (((i+1) % 7 === 0 || (i - 5) % 7 === 0)) {
+            if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
               return <div className="weekend" key={i}>{dayData.day}</div>
             } else {
-              return <div onClick={(e) => book(e, dayData)} key={i}>{dayData.day}</div>
+              return <div id={dayData.id} onClick={(e) => selectDays(e, dayData.id)} key={i}>{dayData.day}</div>
             }
           }
           if (dayData.availability === 0) {
-            if (((i+1) % 7 === 0 || (i - 5) % 7 === 0)) {
+            if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
               return <div className="weekend" key={i}>{dayData.day}</div>
             } else {
               return <div className='booked' key={i}>{dayData.day}</div>

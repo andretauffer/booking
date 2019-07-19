@@ -60,9 +60,9 @@ app.get('/api/getCalendar/:year/:month', async (req, res) => {
 app.post('/api/updateCalendar', async (req, res) => {
     const change = req.body;
     console.log(req.body);
-    await change.days.forEach(day => {
-      console.log(day);
-      client.query(`UPDATE Calendar SET availability = 0, customer = ${change.user} WHERE id = ${day.id}`);
+    await change.days.forEach(id => {
+      console.log('id', id);
+      client.query(`UPDATE Calendar SET availability = 0, customer = ${change.user} WHERE id = ${id}`);
       console.log('heyi');
     });
     const resa = await client.query(`select * from Calendar WHERE month = ${change.month} and year = ${change.year} `);
