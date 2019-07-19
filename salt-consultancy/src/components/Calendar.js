@@ -32,13 +32,12 @@ const Calendar = () => {
 
   const appendBeginning = (val) => {
     const res = [];
-    for (let i = 0; i < val; i++) {
+    for (let i = 1; i < val; i++) {
       res.push({ dummy: true })
     }
     return res;
   }
   const appendEnd = (val) => {
-    // console.log(val);
     const res = [];
     val = 7 - val;
     for (let i = 0; i <= val; i++) {
@@ -53,6 +52,7 @@ const Calendar = () => {
   }
 
   const book = (e, dayData) => {
+    console.log(e, dayData);
     e.target.className = e.target.className === 'selected' ? '' : 'selected';
     const a = [...booked];
     if (a.length === 0) a.push(dayData);

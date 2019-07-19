@@ -23,9 +23,7 @@
     "eject": "react-scripts eject",
     "server": "nodemon ./server/index.js",
     "predocker": "docker run --name salt-consultancy -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres",
-    "docker": "docker start salt-consultancy",
-    "eslint": "./node_modules/.bin/eslint --init",
-    "lint": "eslint src/**/*.js && eslint server/*.js"
+    "docker": "docker start salt-consultancy"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,7 +42,6 @@
   },
   "proxy": "http://localhost:5000",
   "devDependencies": {
-    "eslint": "^6.0.1",
     "eslint-plugin-react": "^7.14.2",
     "nodemon": "^1.19.1"
   }

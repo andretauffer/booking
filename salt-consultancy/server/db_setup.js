@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const apiService = require('../server/index');
-const { Client } = require('pg');
+const pg = require('pg');
+const Client = pg.Client;
+pg.types.setTypeParser(1082, 'text', function (val) {
+  return val;
+});
 
 const client = new Client({
   host: 'localhost',
@@ -11,6 +15,7 @@ const client = new Client({
   database: 'postgres'
 });
 const connect = async () => {
+  console.log('Connecting to database');
   try {
     await client.connect()
   } catch (e) {
@@ -21,7 +26,6 @@ const connect = async () => {
 connect()
 
 async function fetchData() {
-  //await client.connect()
   await client.query(`create table if not exists Users (
           id serial primary key,
           username varchar not null,
@@ -29,7 +33,7 @@ async function fetchData() {
 );`)
 
   const res = await client.query('select * from Users');
-  console.log(res.rows); 
+  console.log(res.rows);
   return res;
 }
 
@@ -41,6 +45,7 @@ async function fetchData() {
 /////
 
 router.get('/delete', async (req, res) => {
+  console.log('Deleting table calendar');
   await client.query('DROP TABLE Users');
   res.end();
   console.log('Sent list of items');
@@ -51,6 +56,7 @@ router.get('/createuser', async (req, res) => {
 
 
 router.get('/insertCal', async (req, res) => {
+  console.log('Creating table calendar..');
   const resdb = await client.query(`create table if not exists Calendar (
     id serial primary key,
     date date not null,
@@ -62,23 +68,67 @@ router.get('/insertCal', async (req, res) => {
     customer integer
 );`);
 
-    let boook = Math.round(Math.random());
-    await client.query(`insert into Calendar(date) values (generate_series('2019-01-01'::date,'2023-12-31'::date,'1 day'::interval))`);
-    res.send(resdb);
-  });
-  
-  router.get('/genData', async (req, res) => {
-    await client.query(`update Calendar set weekday = extract(isodow from date)`);
-    await client.query(`update Calendar set day = date_part('day', date)`);
-    await client.query(`update Calendar set month = date_part('month', date)`);
-    await client.query(`update Calendar set year = date_part('year', date)`);
-    await client.query(`update Calendar set availability = 1`);
-  res.send(res);
+  await client.query(`insert into Calendar(date) values (generate_series('2019-01-01'::date,'2023-12-31'::date,'1 day'::interval))`);
+  res.send(resdb);
+});
+
+router.get('/genData', async (req, res) => {
+  console.log('Generates calendar data');
+  await client.query('DROP TABLE Users');
+  const resdb = await client.query(`create table if not exists Calendar (
+    id serial primary key,
+    date date not null,
+    year integer,
+    month integer,
+    day integer,
+    weekday integer,
+    availability integer,
+    customer integer
+);`);
+
+
+  await client.query("update Calendar set weekday = extract(isodow from date)");
+  await client.query("update Calendar set day = date_part('day', date)");
+  await client.query("update Calendar set month = date_part('month', date)");
+  await client.query("update Calendar set year = date_part('year', date)");
+  await client.query("update Calendar set availability = 1");
+
+  res.send(201);
+});
+
+router.get('/initCal', async (req, res) => {
+  await client.query('DROP TABLE Calendar');
+
+  await client.query(`create table if not exists Calendar (
+    id serial primary key,
+    date date not null,
+    year integer,
+    month integer,
+    day integer,
+    weekday integer,
+    availability integer,
+    customer integer
+);`);
+  await client.query(`insert into Calendar(date) values (generate_series('2019-01-01'::date,'2023-12-31'::date,'1 day'::interval))`);
+
+  console.log('Generates calendar data');
+  await client.query("update Calendar set weekday = extract(isodow from date)");
+  await client.query("update Calendar set day = date_part('day', date)");
+  await client.query("update Calendar set month = date_part('month', date)");
+  await client.query("update Calendar set year = date_part('year', date)");
+  await client.query("update Calendar set availability = 1");
+
+  const calendarData = await client.query('select * from Calendar');
+
+
+  res.send(201, calendarData);
 });
 
 
 router.get('/getCal', async (req, res) => {
+  console.log('Selects * from calendar');
   const resa = await client.query('select * from Calendar');
+  console.log(resa.rows[0].date)
   res.send(resa.rows);
 });
 
