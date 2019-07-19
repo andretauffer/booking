@@ -98,7 +98,7 @@ const Calendar = () => {
     <div>
       <h3>{monthNames[month - 1]} {year}</h3>
       <div className="grid-container1">
-        <div className='weekday'>Monday</div><div className='weekday'>Tuesday</div><div className='weekday'>Wednesday</div><div className='weekday'>Thursday</div><div className='weekday'>Friday</div><div className='weekday'>Saturday</div><div className='weekday'>Sunday</div>
+        <div className='weekday'>M</div><div className='weekday'>T</div><div className='weekday'>W</div><div className='weekday'>T</div><div className='weekday'>F</div><div className='weekday'>S</div><div className='weekday'>S</div>
         {calendar.map((dayData, i) => {
           if (dayData.dummy) {
             if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {

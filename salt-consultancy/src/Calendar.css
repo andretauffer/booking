@@ -1,10 +1,10 @@
 .grid-container1 {
   display: flex;
-  width: 75%;
+  max-width: 600px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . .";
 }
 
@@ -13,7 +13,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80px;
 }
 .buttons button {
   border-radius: 8px;
@@ -33,4 +32,18 @@
 }
 .weekday {
   background-color: #c4dce4;
+  min-height: 50px;
+}
+
+@media (max-width:  600px) {
+  .grid-container1{
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .grid-container1 div {
+    min-height: 30px;
+    max-height: 80px;
+  }
+
 }

@@ -51,6 +51,11 @@ router.get('/delete', async (req, res) => {
 });
 router.get('/createuser', async (req, res) => {
   await client.query(`insert into Users(username, password, name) values ('Salt', 'sales', 'salt')`);
+  await client.query(`insert into Users(username, password, name) values ('Andre', 'brazil', 'André Tauffer')`);
+  await client.query(`insert into Users(username, password, name) values ('Chris', 'sweden', 'Christian Sandström')`);
+  await client.query(`insert into Users(username, password, name) values ('Christoffer', 'england', 'Christoffer Sundqvist')`);
+  await client.query(`insert into Users(username, password, name) values ('Blocket', 'money', 'Blocket Co.')`);
+  req.end();
 });
 
 
@@ -141,9 +146,7 @@ router.get('/create', async (req, res) => {
       password varchar not null,
       name varchar not null
 );`)
-  await client.query(`insert into Users(username, password, name) values ('Andre', 'brazil', 'André Tauffer')`);
-  await client.query(`insert into Users(username, password, name) values ('Chris', 'sweden', 'Christian Sandström')`);
-  await client.query(`insert into Users(username, password, name) values ('Christoffer', 'england', 'Christoffer Sundqvist')`);
+  
   res.end();
   console.log('Sent list of items');
 });
