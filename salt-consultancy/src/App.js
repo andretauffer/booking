@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import './Calendar.css';
 import './Developers.css';
+import './components/Calendar/Legend.css';
 import { BrowserRouter, Route } from "react-router-dom";
 import { CookiesProvider } from 'react-cookie';
 import Home from './components/Home';

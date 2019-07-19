@@ -1,6 +1,7 @@
 import React, {
   useState, useEffect
 } from 'react';
+import Legend from './Calendar/Legend';
 
 const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
@@ -53,14 +54,14 @@ const Calendar = () => {
 
   const selectDays = (e, id) => {
     const currSelection = [...selected];
-    if(currSelection.filter(el => el === id).length !== 0) {
+    if (currSelection.filter(el => el === id).length !== 0) {
       currSelection.splice(currSelection.indexOf(id), 1)
       e.target.className = '';
     } else {
       currSelection.push(id);
       e.target.className = 'selected'
     }
-      setSelected(currSelection);
+    setSelected(currSelection);
   }
 
   const changeMonth = val => {
@@ -74,7 +75,16 @@ const Calendar = () => {
       setYear(year - 1);
     }
     setMonth(newMonth);
+    resetSelection()
   };
+
+  const resetSelection = () => {
+    setSelected([]);
+    const selectedDivs = Array.from(document.querySelectorAll('.selected'));
+    selectedDivs.map(el => {
+      el.className = '';
+    })
+  }
 
 
   const bookDays = async () => {
@@ -122,6 +132,9 @@ const Calendar = () => {
             }
           }
         })}
+      </div>
+      <div className='legend'>
+        <Legend />
       </div>
       <div className="buttons">
         <div>

@@ -14,6 +14,7 @@ const client = new Client({
   password: 'docker',
   database: 'postgres'
 });
+
 const connect = async () => {
   console.log('Connecting to database');
   try {
@@ -38,17 +39,28 @@ async function fetchData() {
 }
 
 router.get('/deleteCal', async (req, res) => {
-
-  await client.query('DROP TABLE Calendar');
+  await client.query('DROP TABLE if exists Calendar');
   res.end();
 });
 
-router.get('/delete', async (req, res) => {
+router.get('/deleteUsers', async (req, res) => {
   console.log('Deleting table calendar');
   await client.query('DROP TABLE Users');
   res.end();
+});
+
+router.get('/create', async (req, res) => {
+  await client.query(`create table if not exists Users (
+      id serial primary key,
+      username varchar not null unique,
+      password varchar not null,
+      name varchar not null
+);`)
+
+  res.end();
   console.log('Sent list of items');
 });
+
 router.get('/createuser', async (req, res) => {
   await client.query(`insert into Users(username, password, name) values ('Salt', 'sales', 'salt')`);
   await client.query(`insert into Users(username, password, name) values ('Andre', 'brazil', 'André Tauffer')`);
@@ -90,7 +102,6 @@ router.get('/genData', async (req, res) => {
     customer integer
 );`);
 
-
   await client.query("update Calendar set weekday = extract(isodow from date)");
   await client.query("update Calendar set day = date_part('day', date)");
   await client.query("update Calendar set month = date_part('month', date)");
@@ -102,9 +113,9 @@ router.get('/genData', async (req, res) => {
 
 router.get('/initCal', async (req, res) => {
   //delete existing calendar
-  await client.query('DROP TABLE Calendar');
+  await client.query('DROP TABLE if exists Calendar');
 
-  
+  //creates an empty calendar
   await client.query(`create table if not exists Calendar (
     id serial primary key,
     date date not null,
@@ -117,19 +128,18 @@ router.get('/initCal', async (req, res) => {
 );`);
   await client.query(`insert into Calendar(date) values (generate_series('2019-01-01'::date,'2023-12-31'::date,'1 day'::interval))`);
 
-  console.log('Generates calendar data');
+  //populate calendar
   await client.query("update Calendar set weekday = extract(isodow from date)");
   await client.query("update Calendar set day = date_part('day', date)");
   await client.query("update Calendar set month = date_part('month', date)");
   await client.query("update Calendar set year = date_part('year', date)");
   await client.query("update Calendar set availability = 1");
 
+  //return calendar
   const calendarData = await client.query('select * from Calendar');
-
 
   res.send(201, calendarData);
 });
-
 
 router.get('/getCal', async (req, res) => {
   console.log('Selects * from calendar');
@@ -138,18 +148,6 @@ router.get('/getCal', async (req, res) => {
   res.send(resa.rows);
 });
 
-
-router.get('/create', async (req, res) => {
-  await client.query(`create table if not exists Users (
-      id serial primary key,
-      username varchar not null unique,
-      password varchar not null,
-      name varchar not null
-);`)
-  
-  res.end();
-  console.log('Sent list of items');
-});
 router.get('/getList', async (req, res) => {
   var list = await fetchData();
   res.send(list.rows);

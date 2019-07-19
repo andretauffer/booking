@@ -12,7 +12,7 @@ const client = new Client({
     database: 'postgres'
 });
 
-const connecta = async () => {
+const connect = async () => {
     try {
         await client.connect()
     } catch (e) {
@@ -20,17 +20,13 @@ const connecta = async () => {
     }
 };
 
-
-
 const app = express();
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.json());
 
-
 app.post('/api/login', async (req, res) => {
-    // validate against database
     let user = await client.query('SELECT * FROM Users WHERE username = $1', [req.body.username]);
     if (user.rows.length > 0) {
         if (user.rows[0].password === req.body.password) {
@@ -42,8 +38,6 @@ app.post('/api/login', async (req, res) => {
             const retVal = {login: 0, status: 'Invalid Password'}
             res.send(JSON.stringify(retVal));
         }
-        console.log(user.rows);
-        console.log(req.body);
     } else {
         const retVal = {login: 0, status: 'User does not exist'}
         res.send(JSON.stringify(retVal));
@@ -59,11 +53,8 @@ app.get('/api/getCalendar/:year/:month', async (req, res) => {
 
 app.post('/api/updateCalendar', async (req, res) => {
     const change = req.body;
-    console.log(req.body);
     await change.days.forEach(id => {
-      console.log('id', id);
       client.query(`UPDATE Calendar SET availability = 0, customer = ${change.user} WHERE id = ${id}`);
-      console.log('heyi');
     });
     const resa = await client.query(`select * from Calendar WHERE month = ${change.month} and year = ${change.year} `);
     res.send(resa.rows);
@@ -79,6 +70,6 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 5000;
 app.listen(port);
 
-connecta();
+connect();
 console.log('App is listening on port ' + port);
 module.exports.client = client
