@@ -21,10 +21,7 @@ function App() {
       <BrowserRouter>
       <CustomNavbar/>
         <header className="App-header">
-          <h1>
-            Salt Consultancy
-        </h1>
-          <h3>JavaScript Full-Stack Developers for You!</h3>
+          <h1>Salt Consultancy</h1>
         </header>
         <div>
           <Route exact path="/" component={Home} />

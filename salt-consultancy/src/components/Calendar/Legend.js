@@ -1,20 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
-export default function Legend () {
-  return (
-    <div className='legend-container'>
+const Legend = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['name']);
+  const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
+
+  if (loggedIn) {
+    return (
       <div>
-        <div className='booked-legend'></div>
-        <div>Booked</div>
+        <div className='legend-container'>
+          <div className='booked-legend'></div>
+          <p>Booked</p>
+          <div className='weekend-legend'></div>
+          <p>Unavailable</p>
+          <div className='users-legend'></div>
+          <p>My bookings</p>
+        </div>
       </div>
+    )
+  } else {
+    return (
       <div>
-        <div className='weekend-legend'></div>
-        <div>Unavailable</div>
+        <div className='legend-container'>
+          <div className='booked-legend'></div>
+          <p>Booked</p>
+          <div className='weekend-legend'></div>
+          <p>Unavailable</p>
+        </div>
       </div>
-      <div>
-        <div className='users-legend'></div>
-        <div>Current Users booked times</div>
-      </div>
-    </div>
-  )
+    )
+  }
 }
+
+export default Legend;

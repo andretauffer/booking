@@ -4,11 +4,23 @@
   margin: 0 auto;
   width: 75%;
   justify-content: center;
-  /* grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: ". . ."; */
+
 }
 
 .grid-container img {
-  padding: 0px 20px 0px 20px;
+  border: solid 2px greenyellow;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.grid-container .skills {
+  text-align: left;
+  margin: 0 auto;
+  margin-left: 30px;
+}
+.grid-container .skills p{
+  margin: 0 auto;
+}
+
+.developer {
+  padding: 0px 30px 0px 30px;
 }

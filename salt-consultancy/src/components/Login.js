@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 
 
-const Login = (props) => {
+const Login = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
   const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
-  const [user, setUser] = useState(cookies.user);
+  const [user, setUser] = useState();
 
   const handleChangeUsername = e => {
     setUsername(e.target.value);
@@ -35,12 +35,12 @@ const Login = (props) => {
     }).then(response => response.json())
       .then(data => {
         if (data.login) {
-          setCookie('user', data.name);
+          setCookie('user', data.id);
           setUser(data.name);
           setLoggedIn(true);
         }
         if (!data.login) {
-          setUser('');
+          // setUser('');
           console.log(data.status);
         }
       });
