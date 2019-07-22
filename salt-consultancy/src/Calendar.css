@@ -21,10 +21,15 @@
 }
 .booked {
   background-color: hsl(350, 81%, 59%);
+  color: white;
 }
 
 .weekend {
   background-color: lightgray;
+}
+.userBook {
+  background-color: blue;
+  color: white;
 }
 
 .selected {
@@ -33,6 +38,12 @@
 .weekday {
   background-color: #c4dce4;
   min-height: 50px;
+}
+
+.unbook-button {
+  background-color: transparent;
+  color: white;
+  border: none;
 }
 
 @media (max-width:  600px) {

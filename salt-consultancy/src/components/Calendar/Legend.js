@@ -11,6 +11,10 @@ export default function Legend () {
         <div className='weekend-legend'></div>
         <div>Unavailable</div>
       </div>
+      <div>
+        <div className='users-legend'></div>
+        <div>Current Users booked times</div>
+      </div>
     </div>
   )
 }

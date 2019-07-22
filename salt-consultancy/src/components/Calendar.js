@@ -36,6 +36,7 @@ const Calendar = () => {
     for (let i = 1; i < val; i++) {
       res.push({ dummy: true })
     }
+    
     return res;
   }
   const appendEnd = (val) => {
@@ -53,16 +54,43 @@ const Calendar = () => {
   }
 
   const selectDays = (e, id) => {
-    const currSelection = [...selected];
-    if (currSelection.filter(el => el === id).length !== 0) {
-      currSelection.splice(currSelection.indexOf(id), 1)
-      e.target.className = '';
-    } else {
-      currSelection.push(id);
-      e.target.className = 'selected'
+    if (e.target.class !== 'userBook') {
+      console.log('inside');
+      const currSelection = [...selected];
+      if (currSelection.filter(el => el === id).length !== 0) {
+        currSelection.splice(currSelection.indexOf(id), 1)
+        e.target.className = '';
+      } else {
+        currSelection.push(id);
+        e.target.className = 'selected'
+      }
+      setSelected(currSelection);
     }
-    setSelected(currSelection);
   }
+  const unbookDays = async (e, id) => {
+    const unbook = e.target;
+    await fetch('/api/removeBooking', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ days: [id], user: 5, month: month, year: 2019 })
+    }).then(response => response.json())
+      .then(data => {
+        data.sort(compare);
+        const apa = appendBeginning(data[0].weekday)
+        data.unshift(...apa);
+        const apa1 = appendEnd((data.length % 7) + 1)
+        data.push(...apa1);
+        setCalendar(data);
+        resetSelection();
+      });
+  }
+
+  function myFunction(e) {
+    e.stopPropagation();
+  }
+
 
   const changeMonth = val => {
     let newMonth = month + val;
@@ -102,6 +130,7 @@ const Calendar = () => {
         const apa1 = appendEnd((data.length % 7) + 1)
         data.push(...apa1);
         setCalendar(data);
+        setSelected([]);
       });
   }
   return (
@@ -128,7 +157,12 @@ const Calendar = () => {
             if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
               return <div className="weekend" key={i}>{dayData.day}</div>
             } else {
-              return <div className='booked' key={i}>{dayData.day}</div>
+              console.log('uo');
+              if (dayData.customer === 4) {
+                return <div id={dayData.id} onClick={(e) => unbookDays(e, dayData.id)} className="userBook" key={i}>{dayData.day}</div>
+              } else {
+                return <div className='booked' key={i}>{dayData.day}</div>
+              }
             }
           }
         })}

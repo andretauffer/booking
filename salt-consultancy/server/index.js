@@ -60,6 +60,15 @@ app.post('/api/updateCalendar', async (req, res) => {
     res.send(resa.rows);
   });
 
+app.post('/api/removeBooking', async (req, res) => {
+    const change = req.body;
+    await change.days.forEach(id => {
+      client.query(`UPDATE Calendar SET availability = 1, customer = null WHERE id = ${id}`);
+    });
+    const resa = await client.query(`select * from Calendar WHERE month = ${change.month} and year = ${change.year} `);
+    res.send(resa.rows);
+  });
+
 app.use('/db', dbsetup);
 
 // Handles any requests that don't match the ones above
