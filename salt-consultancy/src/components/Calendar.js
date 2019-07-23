@@ -17,7 +17,6 @@ const Calendar = () => {
     "July", "August", "September", "October", "November", "December"
   ];
   const andre = useContext(AuthContext)
-  console.log(andre)
 
   useEffect(() => {
     const bookInfo = document.querySelector('.booking-info');
@@ -36,35 +35,27 @@ const Calendar = () => {
   }, [month, cookies]);
 
 
-  function appendDeadSpace(data) {
-    const dummy = {dummy: true};
-    const beg = Array(data[0].weekday - 1).fill(dummy);
+  const appendDeadSpace = data => {
+    const dummy = { dummy: true };
+    const beginning = Array(data[0].weekday - 1).fill(dummy);
     const end = Array(7 - data.slice(-1)[0].weekday).fill(dummy);
-    data.unshift(...beg);
+    data.unshift(...beginning);
     data.push(...end);
-    // const end = data.slice(-1)[0].weekday;
-    // for (let i = 1; i < beg; i++) {
-    //   data.unshift(dummy);
-    // }
-    // for (let i = 1; i <= (7 - end); i++) {
-    //   data.push(dummy);
-    // }
     return data;
   }
 
   const selectDays = (e, id) => {
-    if (e.target.class !== 'userBook') {
+    if (e.target.className !== 'userBook') {
       const currSelection = [...selected];
-      if (currSelection.filter(el => el === id).length !== 0) {
+      if (currSelection.filter(el => el === id).length > 0) {
         currSelection.splice(currSelection.indexOf(id), 1)
-        e.target.className = '';
+        e.target.className = 'notBooked';
       } else {
         currSelection.push(id);
         e.target.className = 'selected'
       }
       setSelected(currSelection);
     }
-    console.log(selected);
   }
 
   const openUnbook = (e, id) => {
@@ -73,6 +64,15 @@ const Calendar = () => {
     console.log(bookInfo);
     setunbookingId([id]);
   }
+
+  const resetSelection = () => {
+    setSelected([]);
+    const selectedDivs = Array.from(document.querySelectorAll('.selected'));
+    selectedDivs.map(el => {
+      el.className = 'notBooked';
+    })
+  }
+
   const changeMonth = val => {
     let newMonth = month + val;
     if (newMonth > 12) {
@@ -88,46 +88,34 @@ const Calendar = () => {
   };
 
   const unbookDays = async () => {
-    await fetch('/api/removeBooking', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ days: [unbookingId], user: cookies.user, month: month, year: 2019 })
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setCalendar(appendDeadSpace(data));
-        resetSelection();
-        document.querySelector('.booking-info').innerHTML = '<h4>Successfully unbooked</h4>';
-      });
+    let uri = '/api/removeBooking';
+    serverReq(uri, [unbookingId]);
   }
 
-
-  const resetSelection = () => {
-    setSelected([]);
-    const selectedDivs = Array.from(document.querySelectorAll('.selected'));
-    selectedDivs.map(el => {
-      el.className = '';
-    })
-  }
 
   const bookDays = async () => {
     if (!cookies.user) {
       alert('You need to log in to book a time');
     }
-    await fetch('/api/updateCalendar', {
+    let uri = '/api/updateCalendar';
+    serverReq(uri, selected);
+  }
+
+  const serverReq = async (uri, days) => {
+    await fetch(uri, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ days: selected, user: cookies.user, month: month, year: 2019 })
+      body: JSON.stringify({ days: days, user: cookies.user, month: month, year: year })
     }).then(response => response.json())
       .then(data => {
         setCalendar(appendDeadSpace(data));
         setSelected([]);
       });
   }
+
+
   return (
     <div>
       <h3>{monthNames[month - 1]} {year}</h3>

@@ -11,9 +11,9 @@ const Developers = () => {
       <div className="grid-container">
         <div className='developer'>
           <img src="/img/andre.jpg"></img>
+          <div className='skills'>
           <h5>André Tauffer</h5>
           <h6>Skills:</h6>
-          <div className='skills'>
             {skills1.map((skill, i) => {
               return <p>- {skill}</p>
             })}
@@ -21,9 +21,9 @@ const Developers = () => {
         </div>
         <div className='developer'>
           <img src="/img/christian.jpg"></img>
+          <div className='skills'>
           <h5>Christian Sandström</h5>
           <h6>Skills:</h6>
-          <div className='skills'>
             {skills2.map(skill => {
               return <p>- {skill}</p>
             })}
@@ -31,9 +31,9 @@ const Developers = () => {
         </div>
         <div className='developer'>
           <img src="/img/chris.jpg"></img>
+          <div className='skills'>
           <h5>Christoffer Sundqvist</h5>
           <h6>Skills:</h6>
-          <div className='skills'>
             {skills3.map(skill => {
               return <p>- {skill}</p>
             })}

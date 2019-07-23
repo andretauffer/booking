@@ -22,14 +22,11 @@ const CalWidget = () => {
   }, []);
   
   function appendDeadSpace(data) {
-    const beg = data[0].weekday;
-    const end = data.slice(-1)[0].weekday;
-    for (let i = 1; i < beg; i++) {
-      data.unshift({ dummy: true })
-    }
-    for (let i = 1; i <= (7 - end); i++) {
-      data.push({ dummy: true })
-    }
+    const dummy = { dummy: true };
+    const beginning = Array(data[0].weekday - 1).fill(dummy);
+    const end = Array(7 - data.slice(-1)[0].weekday).fill(dummy);
+    data.unshift(...beginning);
+    data.push(...end);
     return data;
   }
 

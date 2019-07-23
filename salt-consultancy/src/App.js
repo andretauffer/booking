@@ -29,9 +29,6 @@ function App() {
       <BrowserRouter>
       <AuthContext.Provider>
       <CustomNavbar/>
-        <header className="App-header">
-          <h1>Salt Consultancy</h1>
-        </header>
         <div>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
