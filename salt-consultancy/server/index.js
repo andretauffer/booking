@@ -52,18 +52,26 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.get('/api/getCalendar/:year/:month', async (req, res) => {
-    const token = req.headers.cookie;
-    const aba = token.split('=');
+    let token;
+    let aba;
     let uID;
-    jwt.verify(aba[1], 'secret', function(err, decoded) {
-        uID = decoded.data;
-        console.log(decoded)
-    });
+
+    if(req.headers.cookie) {
+        token = req.headers.cookie;
+        aba = token.split('=');
+        jwt.verify(aba[1], 'secret', function(err, decoded) {
+            uID = decoded.data;
+            console.log(decoded)
+        });
+    }
     let currMonth = req.params.month;
     let currYear = req.params.year;
     let month = await client.query(`SELECT * FROM Calendar WHERE month = ${currMonth} and year = ${currYear} ORDER by date`);
     month.rows.forEach(day => {
         day.thisUser = day.customer === uID ? true : false;
+        if(uID === 1 || uID === 2 || uID === 3){
+            day.thisUser = true;
+        }
     });
     res.send(JSON.stringify(month.rows));
 });
@@ -83,6 +91,9 @@ app.post('/api/updateCalendar', async (req, res) => {
     const resa = await client.query(`select * from Calendar WHERE month = ${change.month} and year = ${change.year} ORDER by date`);
     resa.rows.forEach(day => {
         day.thisUser = day.customer === uID ? true : false;
+        if(uID === 1 || uID === 2 || uID === 3){
+            day.thisUser = true;
+        }
     });
     res.send(resa.rows);
 });
@@ -102,6 +113,9 @@ app.post('/api/removeBooking', async (req, res) => {
     const resa = await client.query(`select * from Calendar WHERE month = ${change.month} and year = ${change.year} ORDER by date`);
     resa.rows.forEach(day => {
         day.thisUser = day.customer === uID ? true : false;
+        if(uID === 1 || uID === 2 || uID === 3){
+            day.thisUser = true;
+        }
     });
     res.send(resa.rows);
 });

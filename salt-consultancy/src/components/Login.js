@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { useCookies } from 'react-cookie';
+
+
 
 
 const Login = () => {
@@ -8,7 +10,8 @@ const Login = () => {
   const [password, setPassword] = useState()
   const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
   const [user, setUser] = useState();
-
+  
+  
   const handleChangeUsername = e => {
     setUsername(e.target.value);
   }
@@ -51,6 +54,7 @@ const Login = () => {
         <p>Welcome {user}</p>
         <button onClick={logOut}>Log Out</button>
       </div>
+
     );
   }
   else {
@@ -71,9 +75,10 @@ const Login = () => {
         </form>
       </div>
 
+
     );
   }
 }
-
-
 export default Login;
+
+

@@ -1,5 +1,5 @@
 body {
-  background-color: whitesmoke;
+  background-color: #5CDB95;
   text-align: center;
 }
 
@@ -7,14 +7,21 @@ body {
   text-align: center;
 }
 
+
+.testing {
+  background-color: black;
+  color: black;
+}
+
+
 .App-header {
-  background-color: greenyellow;
+  background-color: #05386b;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: blue;
+  color: white;
   height: 100px;
   margin: 0 auto;
   margin-top: 15px;
@@ -46,7 +53,7 @@ body {
 }
 
 .about-text, .home-text {
-  width: 60%;
+  width: 85%;
   margin: 0 auto;
   text-align: left;
   margin-top: 60px;
@@ -54,7 +61,8 @@ body {
 }
 
 .post-container{
-  width: 70%;
+  background-color: #EDF5E1;
+  width: 85%;
   margin: 0 auto;
   text-align: left;
   margin-top: 60px;

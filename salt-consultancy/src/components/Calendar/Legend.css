@@ -28,7 +28,12 @@
 }
 
 .users-legend{
-  background-color: blue;
+  background-color: rgb(119, 227, 83);
+  width: 17px;
+  height: 17px;
+}
+.available-legend {
+  background-color: white;
   width: 17px;
   height: 17px;
 }

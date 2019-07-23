@@ -1,21 +1,27 @@
 import React, {
-  useState, useEffect
+  useState, useEffect, useContext
 } from 'react';
-import Legend from './Calendar/Legend';
 import { useCookies } from 'react-cookie';
+import AuthContext from '../App';
 
 
 const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [unbookingId, setunbookingId] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
+  const date = new Date().toISOString().split('T')[0];
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
+  const andre = useContext(AuthContext)
+  console.log(andre)
 
   useEffect(() => {
+    const bookInfo = document.querySelector('.booking-info');
+    bookInfo.style.display = 'none';
     if (year === 2019 && month === 1) {
       document.querySelector('#prev').style.display = 'none';
     } else {
@@ -27,17 +33,22 @@ const Calendar = () => {
       .then(data => {
         setCalendar(appendDeadSpace(data));
       });
-  }, [month]);
+  }, [month, cookies]);
+
 
   function appendDeadSpace(data) {
-    const beg = data[0].weekday;
-    const end = data.slice(-1)[0].weekday;
-    for (let i = 1; i < beg; i++) {
-      data.unshift({ dummy: true })
-    }
-    for (let i = 1; i <= (7 - end); i++) {
-      data.push({ dummy: true })
-    }
+    const dummy = {dummy: true};
+    const beg = Array(data[0].weekday - 1).fill(dummy);
+    const end = Array(7 - data.slice(-1)[0].weekday).fill(dummy);
+    data.unshift(...beg);
+    data.push(...end);
+    // const end = data.slice(-1)[0].weekday;
+    // for (let i = 1; i < beg; i++) {
+    //   data.unshift(dummy);
+    // }
+    // for (let i = 1; i <= (7 - end); i++) {
+    //   data.push(dummy);
+    // }
     return data;
   }
 
@@ -53,23 +64,15 @@ const Calendar = () => {
       }
       setSelected(currSelection);
     }
-  }
-  const unbookDays = async (e, id) => {
-    await fetch('/api/removeBooking', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ days: [id], user: cookies.user, month: month, year: 2019 })
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data);
-        setCalendar(appendDeadSpace(data));
-        resetSelection();
-      });
-
+    console.log(selected);
   }
 
+  const openUnbook = (e, id) => {
+    const bookInfo = document.querySelector('.booking-info');
+    bookInfo.style.display = '';
+    console.log(bookInfo);
+    setunbookingId([id]);
+  }
   const changeMonth = val => {
     let newMonth = month + val;
     if (newMonth > 12) {
@@ -84,6 +87,23 @@ const Calendar = () => {
     resetSelection()
   };
 
+  const unbookDays = async () => {
+    await fetch('/api/removeBooking', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ days: [unbookingId], user: cookies.user, month: month, year: 2019 })
+    }).then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setCalendar(appendDeadSpace(data));
+        resetSelection();
+        document.querySelector('.booking-info').innerHTML = '<h4>Successfully unbooked</h4>';
+      });
+  }
+
+
   const resetSelection = () => {
     setSelected([]);
     const selectedDivs = Array.from(document.querySelectorAll('.selected'));
@@ -93,6 +113,9 @@ const Calendar = () => {
   }
 
   const bookDays = async () => {
+    if (!cookies.user) {
+      alert('You need to log in to book a time');
+    }
     await fetch('/api/updateCalendar', {
       method: 'post',
       headers: {
@@ -107,36 +130,43 @@ const Calendar = () => {
   }
   return (
     <div>
-      <div className='legend'>
-        <Legend />
-      </div>
       <h3>{monthNames[month - 1]} {year}</h3>
       <div className="grid-container1">
         <div className='weekday'>M</div><div className='weekday'>T</div><div className='weekday'>W</div><div className='weekday'>T</div><div className='weekday'>F</div><div className='weekday'>S</div><div className='weekday'>S</div>
         {calendar.map((dayData, i) => {
           if (dayData.dummy) {
-            if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
-              return <div className="weekend" key={i}></div>
-            } else {
-              return <div key={i}></div>
-            }
+            return <div className="weekend" key={i}></div>
+
+            // if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
+            //   return <div className="weekend" key={i}></div>
+            // } else {
+            //   return <div key={i}></div>
+            // }
           }
-          if (dayData.availability === 1) {
-            if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
-              return <div className="weekend" key={i}>{dayData.day}</div>
-            } else {
-              return <div id={dayData.id} onClick={(e) => selectDays(e, dayData.id)} key={i}>{dayData.day}</div>
-            }
-          }
-          if (dayData.availability === 0) {
-            if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
-              return <div className="weekend" key={i}>{dayData.day}</div>
-            } else {
-              if (dayData.thisUser) {
-                return <div id={dayData.id} onClick={(e) => unbookDays(e, dayData.id)} className="userBook" key={i}>{dayData.day}</div>
+          if (dayData.date > date) {
+            if (dayData.availability === 1) {
+              if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
+                return <div className="weekend" key={i}>{dayData.day}</div>
               } else {
-                return <div className='booked' key={i}>{dayData.day}</div>
+                return <div id={dayData.id} className="notBooked" onClick={(e) => selectDays(e, dayData.id)} key={i}>{dayData.day}</div>
               }
+            }
+            if (dayData.availability === 0) {
+              if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
+                return <div className="weekend" key={i}>{dayData.day}</div>
+              } else {
+                if (dayData.thisUser) {
+                  return <div id={dayData.id} onClick={(e) => openUnbook(e, dayData.id)} className="userBook" key={i}>{dayData.day}</div>
+                } else {
+                  return <div className='booked' key={i}>{dayData.day}</div>
+                }
+              }
+            }
+          } else {
+            if (dayData.thisUser) {
+              return <div className="userBook" key={i}>{dayData.day}</div>
+            } else {
+              return <div className="weekend" key={i}>{dayData.day}</div>
             }
           }
         })}
@@ -147,6 +177,12 @@ const Calendar = () => {
           <button onClick={() => changeMonth(1)}>Next month</button>
         </div>
         <button onClick={() => bookDays()}>Book now</button>
+      </div>
+      <div className='booking-info'>
+        <h4>Booking info:</h4>
+        <p className='booking-text'>Are you sure you want to unbook?</p>
+        <button onClick={(e) => unbookDays()}>Yes</button>
+        <button>No</button>
       </div>
     </div>
   );

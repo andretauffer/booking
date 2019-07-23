@@ -5,7 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const CustomNavbar = () => {
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="testing" bg="light" expand="lg">
     <Navbar.Brand><img className='logo-container' src='/img/consult.png'></img></Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">

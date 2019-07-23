@@ -30,7 +30,8 @@ async function fetchData() {
   await client.query(`create table if not exists Users (
           id serial primary key,
           username varchar not null,
-          password varchar not null
+          password varchar not null,
+          name varchar not null
 );`)
 
   const res = await client.query('select * from Users');
@@ -73,7 +74,7 @@ router.get('/createuser', async (req, res) => {
   await client.query(`insert into Users(username, password, name) values ('Christoffer', 'england', 'Christoffer Sundqvist')`);
   await client.query(`insert into Users(username, password, name) values ('Blocket', 'money', 'Blocket Co.')`);
   await client.query(`insert into Users(username, password, name) values ('Salt', 'sales', 'salt')`);
-  req.end();
+  res.end();
 });
 
 

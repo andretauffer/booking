@@ -6,7 +6,7 @@ const Developers = () => {
   const skills2 = ['JavaScript', 'React', 'MongoDB', 'Express', 'TDD', 'REST', 'NPM', 'Mocha', 'jQuery', 'PostgreSQL']
   const skills3 = ['JavaScript', 'Node', 'Express', 'CSS', 'TDD', 'REST', 'NPM', 'Mocha', 'PostgreSQL']
   return (
-    <div>
+    <div className='dev-container'>
       <h1>Developers</h1>
       <div className="grid-container">
         <div className='developer'>
@@ -14,7 +14,7 @@ const Developers = () => {
           <h5>André Tauffer</h5>
           <h6>Skills:</h6>
           <div className='skills'>
-            {skills1.map(skill => {
+            {skills1.map((skill, i) => {
               return <p>- {skill}</p>
             })}
           </div>

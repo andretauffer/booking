@@ -4,7 +4,6 @@ import React from 'react';
 const Blog = () => {
   return (
     <div className='blog-container'>
-      <h1>Blog</h1>
       <div className='post-container'>
         <h2>Post</h2>
         <p>Lorem ipsum dolor amet pitchfork meditation adaptogen sriracha, narwhal woke lomo art party. Lumbersexual thundercats coloring book, cold-pressed artisan gochujang echo park williamsburg craft beer chartreuse shabby chic truffaut. Wayfarers austin prism stumptown vexillologist fam. Tousled hashtag brooklyn biodiesel. Jianbing try-hard poutine hot chicken man braid, readymade sartorial shabby chic brunch lomo vape offal.

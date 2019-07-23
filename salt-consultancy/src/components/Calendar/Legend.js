@@ -9,6 +9,8 @@ const Legend = () => {
     return (
       <div>
         <div className='legend-container'>
+          <div className='available-legend'></div>
+          <p>Available</p>
           <div className='booked-legend'></div>
           <p>Booked</p>
           <div className='weekend-legend'></div>
@@ -22,6 +24,8 @@ const Legend = () => {
     return (
       <div>
         <div className='legend-container'>
+        <div className='available-legend'></div>
+          <p>Available</p>
           <div className='booked-legend'></div>
           <p>Booked</p>
           <div className='weekend-legend'></div>

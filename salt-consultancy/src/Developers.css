@@ -1,14 +1,19 @@
-.grid-container {
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0 auto;
-  width: 75%;
-  justify-content: center;
-
+.dev-container {
+  width: 100%;
 }
 
+.grid-container {
+  flex-flow: row;
+  width: 85%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: ". . . ";
+  margin: 0 auto;
+}
+
+
 .grid-container img {
-  border: solid 2px greenyellow;
+  border: solid 2px #05386b;
   border-radius: 50%;
   margin-bottom: 20px;
 }

@@ -1,0 +1,41 @@
+.home-box {
+  width: 85%; 
+  margin: 0 auto;
+}
+.grid-container-home {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "main main main calendar" "main main main about" "extra extra extra about";
+}
+
+.main { 
+  grid-area: main;
+  margin: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+}
+
+.extra {
+  grid-area: extra;
+  margin: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+}
+
+.calendar { 
+  grid-area: calendar; 
+  margin: 10px 10px 10px 10px;  
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+  text-align: center;
+  width: 500px;
+}
+
+.about { 
+  grid-area: about; 
+  margin: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+}

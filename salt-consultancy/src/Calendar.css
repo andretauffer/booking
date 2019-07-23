@@ -6,6 +6,8 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-areas: ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . .";
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .grid-container1   div {
@@ -26,19 +28,24 @@
 }
 
 .weekend {
-  background-color: lightgray;
+  background-color: #EDF5E1;
 }
 .userBook {
-  background-color: blue;
+  background-color: rgb(119, 227, 83);
   color: white;
 }
 
 .selected {
   background-color: lightblue;
 }
+
+.notBooked {
+  background-color: white;
+}
 .weekday {
-  background-color: #c4dce4;
+  background-color: #05386b;
   min-height: 50px;
+  color: white;
 }
 
 .unbook-button {
