@@ -1,13 +1,15 @@
 .post-container {
-    width: 70%;
-    margin: 0 auto;
-    text-align: left;
-    margin-top: 60px;
-    border: solid 1px;
-    padding: 2% 2% 2% 2%;
-  }
-  
-  .post-container h2 {
-    margin: 0 0 2% 0;
-  }
-  
+  width: 70%;
+  margin: 0 auto;
+  text-align: left;
+  margin-top: 60px;
+  border: solid 1px black;
+  padding: 2% 2% 2% 2%;
+  background-color: hsla(0, 0%, 8%, 0.757);
+  color: rgb(250, 232, 232);
+  border-radius: 5px;
+}
+
+.post-container h2 {
+  margin: 0 0 2% 0;
+}

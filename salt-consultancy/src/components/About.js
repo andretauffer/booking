@@ -4,7 +4,7 @@ import { Parallax } from 'react-scroll-parallax';
 
 const About = () => {
   return (
-    <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
+    <Parallax className="custom-class" y={[-5, 5]} tagOuter="figure">
       <div className='about-container'>
         <h1>About</h1>
         <p className='about-text'>Lorem ipsum dolor amet pitchfork meditation adaptogen sriracha, narwhal woke lomo art party. Lumbersexual thundercats coloring book, cold-pressed artisan gochujang echo park williamsburg craft beer chartreuse shabby chic truffaut. Wayfarers austin prism stumptown vexillologist fam. Tousled hashtag brooklyn biodiesel. Jianbing try-hard poutine hot chicken man braid, readymade sartorial shabby chic brunch lomo vape offal.

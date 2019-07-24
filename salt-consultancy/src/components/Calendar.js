@@ -117,9 +117,9 @@ const Calendar = () => {
 
 
   return (
-    <div>
+    <div className="calendar-container">
       <h3>{monthNames[month - 1]} {year}</h3>
-      <div className="grid-container1">
+      <div className="calendar">
         <div className='weekday'>M</div><div className='weekday'>T</div><div className='weekday'>W</div><div className='weekday'>T</div><div className='weekday'>F</div><div className='weekday'>S</div><div className='weekday'>S</div>
         {calendar.map((dayData, i) => {
           if (dayData.dummy) {

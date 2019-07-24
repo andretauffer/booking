@@ -1,6 +1,18 @@
+.about-container{
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  
+  background-color: hsla(0, 0%, 8%, 0.757);
+  color: rgb(250, 232, 232);
+  padding: 20px 0 100px 0;
+  min-height: 1000px;
+}
+
 .about-text {
     width: 70%;
     margin: 0 auto;
     text-align: left;
     margin-top: 60px;
+
   }

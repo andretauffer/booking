@@ -30,14 +30,12 @@ export const AuthContext = React.createContext({
 
 
 function App() {
-  
+
   let developersRef = useRef(null)
   let bookingRef = useRef(null)
   let projectsRef = useRef(null)
   let aboutRef = useRef(null)
   let homeRef = useRef(null)
-  console.log('something', developersRef);
-  
 
   return (
     <CookiesProvider>
@@ -45,14 +43,13 @@ function App() {
         <AuthContext.Provider>
           <ParallaxProvider>
             <div className="custNav">
-              <CustomNavbar dev={developersRef} book={bookingRef} />
-             
+              <CustomNavbar dev={developersRef} book={bookingRef} proj={projectsRef} about={aboutRef} home={homeRef} />
             </div>
-            <Home />
+            <div ref={homeRef}><Home /></div>
             <div ref={developersRef}> <Developers /> </div>
             <div ref={bookingRef}><Booking /></div>
-            <Projects />
-            <About />
+            <div ref={projectsRef}><Projects /></div>
+            <div ref={aboutRef}><About /></div>
             <Footing />
           </ParallaxProvider>
         </AuthContext.Provider>

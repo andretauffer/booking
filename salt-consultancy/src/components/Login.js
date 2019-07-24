@@ -61,11 +61,13 @@ const Login = () => {
           Username: 
         <input
             type="text"
+            placeholder="Username..."
             onChange={handleChangeUsername}
           />
           Password: 
         <input
             type="password"
+            placeholder="Password..."
             onChange={handleChangePassword}
           />
           <button type="submit">Login</button>

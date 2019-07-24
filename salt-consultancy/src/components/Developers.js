@@ -6,6 +6,8 @@ const Developers = () => {
   let devRef = useRef(null)
   return (
     <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
+    <div>
+
         <h1>Developers</h1>
       <div ref={devRef} className='developers-container'>
         <div className="dev-container">
@@ -35,6 +37,7 @@ const Developers = () => {
           </div>
         </div>
       </div>
+    </div>
     </Parallax>
   );
 }

@@ -1,7 +1,16 @@
-.grid-container1 {
+.booking-container {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  min-height: 1000px;
+}
+
+.calendar {
   display: flex;
   justify-content: center;
   max-width: 600px;
+  width: 50%;
+  min-width: 300px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -12,7 +21,7 @@
   color: black;
 }
 
-.grid-container1   div {
+.calendar   div {
   border: solid 1px lightseagreen;
   display: flex;
   justify-content: center;
@@ -57,12 +66,12 @@
 }
 
 @media (max-width:  600px) {
-  .grid-container1{
+  .calendar{
     max-width: 80%;
     margin: 0 auto;
   }
 
-  .grid-container1 div {
+  .calendar div {
     min-height: 30px;
     max-height: 80px;
   }
