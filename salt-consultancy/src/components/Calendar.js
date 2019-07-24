@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import { useCookies } from 'react-cookie';
 import AuthContext from '../App';
+import { CounterContext } from './Context';
 
 
 const Calendar = () => {
@@ -16,9 +17,11 @@ const Calendar = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  const andre = useContext(AuthContext)
+  const { state, dispatch } = useContext(CounterContext);
 
   useEffect(() => {
+    document.querySelector('#prev').innerText = '<';
+    document.querySelector('#next').innerText = '>';
     const bookInfo = document.querySelector('.booking-info');
     bookInfo.style.display = 'none';
     if (year === 2019 && month === 1) {
@@ -32,7 +35,7 @@ const Calendar = () => {
       .then(data => {
         setCalendar(appendDeadSpace(data));
       });
-  }, [month, cookies]);
+  }, [month, cookies, state.count]);
 
 
   const appendDeadSpace = data => {
@@ -94,7 +97,7 @@ const Calendar = () => {
 
 
   const bookDays = async () => {
-    if (!cookies.user) {
+    if (!state.count) {
       alert('You need to log in to book a time');
     }
     let uri = '/api/updateCalendar';
@@ -119,6 +122,9 @@ const Calendar = () => {
   return (
     <div className="calendar-container">
       <h3>{monthNames[month - 1]} {year}</h3>
+      <div className="calendar-buttons">
+
+        <button id="prev" onClick={() => changeMonth(-1)}>Previous month</button>
       <div className="calendar">
         <div className='weekday'>M</div><div className='weekday'>T</div><div className='weekday'>W</div><div className='weekday'>T</div><div className='weekday'>F</div><div className='weekday'>S</div><div className='weekday'>S</div>
         {calendar.map((dayData, i) => {
@@ -159,11 +165,9 @@ const Calendar = () => {
           }
         })}
       </div>
-      <div className="buttons">
-        <div>
-          <button id="prev" onClick={() => changeMonth(-1)}>Previous month</button>
-          <button onClick={() => changeMonth(1)}>Next month</button>
+          <button id="next" onClick={() => changeMonth(1)}>Next month</button>
         </div>
+      <div className="buttons">
         <button onClick={() => bookDays()}>Book now</button>
       </div>
       <div className='booking-info'>

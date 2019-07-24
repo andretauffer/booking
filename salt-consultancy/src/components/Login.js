@@ -1,5 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { useCookies } from 'react-cookie';
+import { CounterContext } from './Context';
+import { useContext } from 'react';
 
 const Login = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
@@ -7,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState()
   const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
   const [user, setUser] = useState();
+  const { state, dispatch } = useContext(CounterContext);
   
   
   const handleChangeUsername = e => {
@@ -18,12 +21,13 @@ const Login = () => {
   }
 
   const logOut = () => {
+    dispatch({type: "logout"});
     removeCookie('user');
     setLoggedIn(false);
     setUsername();
     setPassword();
   }
-
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     fetch('/api/login', {
@@ -35,6 +39,7 @@ const Login = () => {
     }).then(response => response.json())
       .then(data => {
         if (data.login) {
+          dispatch({type: "login"});
           setCookie('user', data.id);
           setUser(data.name);
           setLoggedIn(true);
@@ -45,6 +50,7 @@ const Login = () => {
         }
       });
   }
+
   if (loggedIn) {
     return (
       <div className="Welcome">
@@ -61,13 +67,13 @@ const Login = () => {
           Username: 
         <input
             type="text"
-            placeholder="Username..."
+            placeholder="Username"
             onChange={handleChangeUsername}
           />
           Password: 
         <input
             type="password"
-            placeholder="Password..."
+            placeholder="Password"
             onChange={handleChangePassword}
           />
           <button type="submit">Login</button>

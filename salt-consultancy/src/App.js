@@ -19,7 +19,8 @@ import Projects from './components/Projects';
 import CustomNavbar from './components/Navbar';
 import Footing from './components/Footing'
 import { ParallaxProvider } from 'react-scroll-parallax';
-import Calendar from './components/Calendar';
+import { CounterProvider } from './components/Context';
+import { tsPropertySignature } from '@babel/types';
 
 export const AuthContext = React.createContext({
   user: null,
@@ -42,15 +43,17 @@ function App() {
       <BrowserRouter>
         <AuthContext.Provider>
           <ParallaxProvider>
-            <div className="custNav">
-              <CustomNavbar dev={developersRef} book={bookingRef} proj={projectsRef} about={aboutRef} home={homeRef} />
-            </div>
-            <div ref={homeRef}><Home /></div>
-            <div ref={developersRef}> <Developers /> </div>
-            <div ref={bookingRef}><Booking /></div>
-            <div ref={projectsRef}><Projects /></div>
-            <div ref={aboutRef}><About /></div>
-            <Footing />
+            <CounterProvider>
+              <div className="custNav">
+                <CustomNavbar dev={developersRef} book={bookingRef} proj={projectsRef} about={aboutRef} home={homeRef} />
+              </div>
+              <div ref={homeRef}><Home book={bookingRef} /></div>
+              <div ref={developersRef}> <Developers /> </div>
+              <div ref={bookingRef}><Booking /></div>
+              <div ref={projectsRef}><Projects /></div>
+              <div ref={aboutRef}><About /></div>
+              <Footing />
+            </CounterProvider>
           </ParallaxProvider>
         </AuthContext.Provider>
       </BrowserRouter>

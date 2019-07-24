@@ -1,17 +1,13 @@
 .booking-container {
   display: flex;
   flex-flow: column wrap;
-  justify-content: center;
   min-height: 1000px;
 }
 
 .calendar {
-  display: flex;
-  justify-content: center;
   max-width: 600px;
   width: 50%;
   min-width: 300px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -19,19 +15,70 @@
   border-radius: 10px;
   overflow: hidden;
   color: black;
+  margin: 1vw;
 }
 
-.calendar   div {
-  border: solid 1px lightseagreen;
+
+.calendar-container {
+  text-align: center;
+}
+
+
+
+.calendar div {
+  border: solid 1px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
+  
+}
+
+.calendar-buttons {
+  margin: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#prev {
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 0 0 30%; */
+  border-radius: 50%;
+  font-size: 18px;
+  height: 30px;
+  width: 30px;
+  /* padding: 0.05vw 0.7vw 0.02vw 0.7vw; */
+  background-color: rgba(255, 255, 255, 0.886);
+  color: #151515;
+  font-weight: bold;
+}
+
+#next{
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 30% 0 0; */
+  border-radius: 50%;
+  font-size: 18px;
+  height: 30px;
+  width: 30px;
+  background-color: rgba(255, 255, 255, 0.886);
+  color: #151515;
+  font-weight: bold;
+}
+
+.calendar div:hover {
+  background-color:rgba(211, 211, 211, 0.297);
 }
 .buttons button {
-  border-radius: 10px;
+  border-radius: 3px;
   background-color: white;
   margin: 5px 5px 5px 5px;
   font-size: 11px;
+  width: 120px;
+  height: 20px;
 }
 .booked {
   background-color: hsl(350, 81%, 59%);
@@ -67,7 +114,7 @@
 
 @media (max-width:  600px) {
   .calendar{
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
   }
 
@@ -75,5 +122,15 @@
     min-height: 30px;
     max-height: 80px;
   }
+
+  .calendar-container h3 {
+    font-size: 20px;
+  }
+  /* #prev{
+    margin: 0 0 0 5%;
+    height: 5%;
+    width: 10%;
+    padding: 0 5px 0 5px;
+  } */
 
 }

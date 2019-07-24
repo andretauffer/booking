@@ -16,12 +16,17 @@
   }
   
   .Welcome input {
-    width: 100px;
-    height: 15px;
+    width: 200px;
+    height: 30px;
     margin-left: 8px;
     margin-right: 7px;
     border: solid 1px lightgray;
     border-radius: 5px;
-    font-size: 10px;
+    font-size: 14px;
     background: transparent;
+    padding: 0 2px 0 2px;
+  }
+
+  .Welcome input::placeholder{
+    padding: 0 0 0 10px;
   }

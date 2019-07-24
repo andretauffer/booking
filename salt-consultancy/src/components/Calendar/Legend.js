@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import { CounterContext } from '../Context';
+
+
 
 const Legend = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
+  const { state, dispatch } = useContext(CounterContext);
 
-  if (loggedIn) {
+  useEffect(() => {
+  }, [state.count]);
+
+  if (state.count || cookies.user) {
     return (
       <div>
         <div className='legend-container'>

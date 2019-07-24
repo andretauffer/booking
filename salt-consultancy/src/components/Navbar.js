@@ -4,7 +4,7 @@ import Login from './Login';
 import { LinkContainer } from 'react-router-bootstrap';
 
 
-const scrollToRef = (ref) => {
+export const scrollToRef = (ref) => {
   // window.scrollTo(0, ref.current.offsetTop)
   window.scrollTo({
     top: ref.current.offsetTop,
