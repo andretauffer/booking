@@ -69,7 +69,7 @@
   font-weight: bold;
 }
 
-.calendar div:hover {
+.notBooked:hover {
   background-color:rgba(211, 211, 211, 0.297);
 }
 .buttons button {

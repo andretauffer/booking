@@ -13,17 +13,17 @@ const Calendar = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
-  const [bookState, setBookState] = useState(0);
+  const [bookState, setBookState] = useState(0)
   const date = new Date().toISOString().split('T')[0];
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
+  const andre = useContext(AuthContext);
   let bookingText = '';
   const { state, dispatch } = useContext(CounterContext);
 
+
   useEffect(() => {
-    document.querySelector('#prev').innerText = '<';
-    document.querySelector('#next').innerText = '>';
     const bookInfo = document.querySelector('.booking-info');
     bookInfo.style.display = 'none';
     if (year === 2019 && month === 1) {
@@ -37,8 +37,7 @@ const Calendar = () => {
       .then(data => {
         setCalendar(appendDeadSpace(data));
       });
-  }, [month, cookies, state.count]);
-
+  }, [month, cookies, state, bookState]);
 
   const appendDeadSpace = data => {
     const dummy = { dummy: true };
@@ -65,31 +64,29 @@ const Calendar = () => {
   }
 
   const openConfirmation = (booking, id) => {
-    if (!state.count && !cookies.user) {
-      alert('You need to log in to book a time');
+    const bookText = document.querySelector('.booking-text');
+    const bookInfo = document.querySelector('.booking-info');
+    if(!booking) {
+      bookText.innerText = 'Do you want to unbook?';
+      setunbookingId(id);
+      setBookState(0);
     } else {
-      const bookText = document.querySelector('.booking-text');
-      const bookInfo = document.querySelector('.booking-info');
-      if (!booking) {
-        bookText.innerText = 'Do you want to unbook?';
-        setunbookingId(id);
-        setBookState(0);
-      } else {
-        let textaaa = '';
-        selected.forEach(id => {
-          calendar.forEach(day => {
-            if (day.id === id) {
-              textaaa += `<br>${day.date}</br>`;
-            }
-          })
-        });
-        bookText.innerHTML = `
+      let textaaa = '';
+      selected.forEach(id => {
+        calendar.forEach(day => {
+          if(day.id === id) {
+            textaaa += `<br>${day.date}</br>`;
+          }
+        })
+        
+      });
+      bookText.innerHTML = `
       <p>Booked days: ${textaaa}</p>
-      <p>Cost of booking: ${selected.length * 1500}SEK excl taxes</p>
+      <p>Cost of booking: ${selected.length * 1500} SEK ex taxes</p>
       <p>Do you want to book?</p>`;
-      }
-      bookInfo.style.display = '';
+      console.log(selected);
     }
+      bookInfo.style.display = '';
   }
 
   const resetSelection = () => {
@@ -117,7 +114,10 @@ const Calendar = () => {
   const bookDays = async () => {
     const bookInfo = document.querySelector('.booking-info');
     const bookText = document.querySelector('.booking-text');
-    if (bookState) {
+    // if (!state.count) {
+    //   alert('You need to log in to book a time');
+    // }
+    if(bookState) {
       let uri = '/api/updateCalendar';
       serverReq(uri, selected);
       bookText.innerText = 'Booking successful!'
@@ -128,10 +128,12 @@ const Calendar = () => {
     }
     setTimeout(() => {
       bookInfo.style.display = 'none';
-    }, 1500);
+    }, 1000);
   }
 
   const serverReq = async (uri, days) => {
+    console.log(uri);
+    console.log(days);
     await fetch(uri, {
       method: 'post',
       headers: {
@@ -147,53 +149,52 @@ const Calendar = () => {
 
 
   return (
-    <div className="calendar-container">
+    <div>
       <h3>{monthNames[month - 1]} {year}</h3>
-      <div className="calendar-buttons">
-
-        <button id="prev" onClick={() => changeMonth(-1)}>Previous month</button>
-        <div className="calendar">
-          <div className='weekday'>M</div><div className='weekday'>T</div><div className='weekday'>W</div><div className='weekday'>T</div><div className='weekday'>F</div><div className='weekday'>S</div><div className='weekday'>S</div>
-          {calendar.map((dayData, i) => {
-            if (dayData.dummy) {
-              return <div className="weekend" key={i}></div>
-            }
-            if (dayData.date > date) {
-              if (dayData.availability === 1) {
-                if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
-                  return <div className="weekend" key={i}>{dayData.day}</div>
-                } else {
-                  return <div id={dayData.id} className="notBooked" onClick={(e) => selectDays(e, dayData.id)} key={i}>{dayData.day}</div>
-                }
-              }
-              if (dayData.availability === 0) {
-                if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
-                  return <div className="weekend" key={i}>{dayData.day}</div>
-                } else {
-                  if (dayData.thisUser) {
-                    return <div id={dayData.id} onClick={(e) => openConfirmation(0, dayData.id)} className="userBook" key={i}>{dayData.day}</div>
-                  } else {
-                    return <div className='booked' key={i}>{dayData.day}</div>
-                  }
-                }
-              }
-            } else {
-              if (dayData.thisUser) {
-                return <div className="userBook" key={i}>{dayData.day}</div>
-              } else {
+      <div className="grid-container1">
+        <div className='weekday'>M</div><div className='weekday'>T</div><div className='weekday'>W</div><div className='weekday'>T</div><div className='weekday'>F</div><div className='weekday'>S</div><div className='weekday'>S</div>
+        {calendar.map((dayData, i) => {
+          if (dayData.dummy) {
+            return <div className="weekend" key={i}></div>
+          }
+          if (dayData.date > date) {
+            if (dayData.availability === 1) {
+              if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
                 return <div className="weekend" key={i}>{dayData.day}</div>
+              } else {
+                return <div id={dayData.id} className="notBooked" onClick={(e) => selectDays(e, dayData.id)} key={i}>{dayData.day}</div>
               }
             }
-          })}
-        </div>
-        <button id="next" onClick={() => changeMonth(1)}>Next month</button>
+            if (dayData.availability === 0) {
+              if (((i + 1) % 7 === 0 || (i - 5) % 7 === 0)) {
+                return <div className="weekend" key={i}>{dayData.day}</div>
+              } else {
+                if (dayData.thisUser) {
+                  return <div id={dayData.id} onClick={(e) => openConfirmation(0, dayData.id)} className="userBook" key={i}>{dayData.day}</div>
+                } else {
+                  return <div className='booked' key={i}>{dayData.day}</div>
+                }
+              }
+            }
+          } else {
+            if (dayData.thisUser) {
+              return <div className="userBook" key={i}>{dayData.day}</div>
+            } else {
+              return <div className="weekend" key={i}>{dayData.day}</div>
+            }
+          }
+        })}
       </div>
       <div className="buttons">
+        <div>
+          <button id="prev" onClick={() => changeMonth(-1)}>Previous month</button>
+          <button onClick={() => changeMonth(1)}>Next month</button>
+        </div>
         <button onClick={() => openConfirmation(1)}>Book now</button>
       </div>
       <div className='booking-info'>
         <h4>Booking info:</h4>
-        <p className='booking-text'>Are you sure you want to unbook?</p>
+        <p className='booking-text'></p>
         <button onClick={(e) => bookDays()}>Yes</button>
         <button>No</button>
       </div>
