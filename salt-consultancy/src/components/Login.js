@@ -1,9 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import { useCookies } from 'react-cookie';
 
-
-
-
 const Login = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [username, setUsername] = useState()

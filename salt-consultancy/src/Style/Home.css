@@ -1,0 +1,22 @@
+.jumbotron {
+  padding-top: 150px;
+  background: rgba(0, 0, 0, 0.0);
+  font-family: 'Roboto Mono', monospace;
+}
+
+.jt-btn {
+  background-color: #000000;
+  border: 0;
+}
+
+.jumbotron h1 {
+  font-size: 10vw;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+.jumbotron p {
+  margin: 0 auto;
+  width: 70%;
+  font-size: 15px;
+  margin-bottom: 10px;
+}

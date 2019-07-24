@@ -60,8 +60,8 @@ app.get('/api/getCalendar/:year/:month', async (req, res) => {
         token = req.headers.cookie;
         aba = token.split('=');
         jwt.verify(aba[1], 'secret', function(err, decoded) {
-            uID = decoded.data;
             console.log(decoded)
+            uID = decoded.data;
         });
     }
     let currMonth = req.params.month;

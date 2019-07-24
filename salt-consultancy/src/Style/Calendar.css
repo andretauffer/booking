@@ -1,5 +1,6 @@
 .grid-container1 {
   display: flex;
+  justify-content: center;
   max-width: 600px;
   margin: 0 auto;
   display: grid;
@@ -8,6 +9,7 @@
   grid-template-areas: ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . ." ". . . . . . .";
   border-radius: 10px;
   overflow: hidden;
+  color: black;
 }
 
 .grid-container1   div {

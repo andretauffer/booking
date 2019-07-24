@@ -1,36 +1,23 @@
 import React from 'react';
-import CalWidget from './CalWidget';
+import { Jumbotron, Button } from 'react-bootstrap';
+import { Parallax } from 'react-scroll-parallax';
 
 
 const Home = () => {
   return (
-    <div className='home-box'>
-
-    <div className="grid-container-home">
-      <div className="main">
-        <p>Lorem ipsum dolor amet pitchfork meditation adaptogen sriracha, narwhal woke lomo art party. Lumbersexual thundercats coloring book, cold-pressed artisan gochujang echo park williamsburg craft beer chartreuse shabby chic truffaut. Wayfarers austin prism stumptown vexillologist fam. Tousled hashtag brooklyn biodiesel. Jianbing try-hard poutine hot chicken man braid, readymade sartorial shabby chic brunch lomo vape offal.
-        Tumeric letterpress air plant small batch tilde literally glossier organic sartorial snackwave godard four loko ramps chartreuse. Hashtag chartreuse lo-fi franzen banh mi keytar schlitz live-edge cliche. Bitters man bun umami put a bird on it leggings XOXO poke mustache retro humblebrag actually biodiesel helvetica single-origin coffee asymmetrical. Pinterest jean shorts lomo waistcoat. Flannel cornhole farm-to-table, dreamcatcher kitsch locavore direct trade deep v pitchfork gastropub green juice godard knausgaard synth neutra. Deep v pork belly shoreditch, salvia meh banjo photo booth.
-        Four loko bicycle rights art party migas, kombucha chambray vinyl jean shorts 8-bit. Sriracha meditation food truck, helvetica asymmetrical snackwave unicorn franzen tumblr taiyaki tacos. Fam pickled knausgaard bespoke distillery marfa squid lo-fi. Flexitarian vexillologist shaman gluten-free PBR&B distillery, umami asymmetrical viral intelligentsia heirloom kitsch organic food truck. Flannel microdosing chartreuse, post-ironic vexillologist +1 before they sold out distillery taiyaki. Flannel cred four loko kickstarter portland enamel pin gochujang tofu pinterest mustache keytar DIY pork belly coloring book vinyl. Lomo raclette dreamcatcher, plaid selfies gastropub meh vape paleo listicle crucifix +1 asymmetrical.
-        Tumeric letterpress air plant small batch tilde literally glossier organic sartorial snackwave godard four loko ramps chartreuse. Hashtag chartreuse lo-fi franzen banh mi keytar schlitz live-edge cliche. Bitters man bun umami put a bird on it leggings XOXO poke mustache retro humblebrag actually biodiesel helvetica single-origin coffee asymmetrical. Pinterest jean shorts lomo waistcoat. Flannel cornhole farm-to-table, dreamcatcher kitsch locavore direct trade deep v pitchfork gastropub green juice godard knausgaard synth neutra. Deep v pork belly shoreditch, salvia meh banjo photo booth.
-        Four loko bicycle rights art party migas, kombucha chambray vinyl jean shorts 8-bit. Sriracha meditation food truck, helvetica asymmetrical snackwave unicorn franzen tumblr taiyaki tacos. Fam pickled knausgaard bespoke distillery marfa squid lo-fi. Flexitarian vexillologist shaman gluten-free PBR&B distillery, umami asymmetrical viral intelligentsia heirloom kitsch organic food truck. Flannel microdosing chartreuse, post-ironic vexillologist +1 before they sold out distillery taiyaki. Flannel cred four loko kickstarter portland enamel pin gochujang tofu pinterest mustache keytar DIY pork belly coloring book vinyl. Lomo raclette dreamcatcher, plaid selfies gastropub meh vape paleo listicle crucifix +1 asymmetrical.
-        </p>
+    <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
+      <div className='home-container'>
+        <Jumbotron className="jumbotron">
+          <h1>Salt Consultancy</h1>
+          <p>
+            Highly experienced node.js professionals available for short term assignments.
+          </p>
+          <p>
+            <Button className="jt-btn" variant="primary">Book now</Button>
+          </p>
+        </Jumbotron>
       </div>
-      <div className="extra">
-      <p>Lorem ipsum dolor amet pitchfork meditation adaptogen sriracha, narwhal woke lomo art party. Lumbersexual thundercats coloring book, cold-pressed artisan gochujang echo park williamsburg craft beer chartreuse shabby chic truffaut. Wayfarers austin prism stumptown vexillologist fam. Tousled hashtag brooklyn biodiesel. Jianbing try-hard poutine hot chicken man braid, readymade sartorial shabby chic brunch lomo vape offal.
-        Four loko bicycle rights art party migas, kombucha chambray vinyl jean shorts 8-bit. Sriracha meditation food truck, helvetica asymmetrical snackwave unicorn franzen tumblr taiyaki tacos. Fam pickled knausgaard bespoke distillery marfa squid lo-fi. Flexitarian vexillologist shaman gluten-free PBR&B distillery, umami asymmetrical viral intelligentsia heirloom kitsch organic food truck. Flannel microdosing chartreuse, post-ironic vexillologist +1 before they sold out distillery taiyaki. Flannel cred four loko kickstarter portland enamel pin gochujang tofu pinterest mustache keytar DIY pork belly coloring book vinyl. Lomo raclette dreamcatcher, plaid selfies gastropub meh vape paleo listicle crucifix +1 asymmetrical.
-        </p>
-      </div>
-      <div className="calendar">
-        <CalWidget>
-        </CalWidget>
-      </div>
-      <div className="about">
-      <p>Lorem ipsum dolor amet pitchfork meditation adaptogen sriracha, narwhal woke lomo art party. Lumbersexual thundercats coloring book, cold-pressed artisan gochujang echo park williamsburg craft beer chartreuse shabby chic truffaut. Wayfarers austin prism stumptown vexillologist fam. Tousled hashtag brooklyn biodiesel. Jianbing try-hard poutine hot chicken man braid, readymade sartorial shabby chic brunch lomo vape offal.
-        Tumeric letterpress air plant small batch tilde literally glossier organic sartorial snackwave godard four loko ramps chartreuse. Hashtag chartreuse lo-fi franzen banh mi keytar schlitz live-edge cliche. Bitters man bun umami put a bird on it leggings XOXO poke mustache retro humblebrag actually biodiesel helvetica single-origin coffee asymmetrical. Pinterest jean shorts lomo waistcoat. Flannel cornhole farm-to-table, dreamcatcher kitsch locavore direct trade deep v pitchfork gastropub green juice godard knausgaard synth neutra. Deep v pork belly shoreditch, salvia meh banjo photo booth.
-        </p>
-      </div>
-    </div>
-    </div>
+    </Parallax>
   );
 }
 

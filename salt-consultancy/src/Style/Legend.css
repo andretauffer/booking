@@ -1,11 +1,9 @@
 .legend {
-  margin-top: 10px;
-  margin-bottom: 0px;
   padding-bottom: 0px;
   display: flex;
   flex-direction: row;
-  margin-left: 10%;
   align-items: center;
+  margin: 0 auto;
 }
 .legend-container{
   width: 100%;

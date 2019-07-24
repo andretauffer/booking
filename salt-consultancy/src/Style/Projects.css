@@ -1,0 +1,13 @@
+.post-container {
+    width: 70%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 60px;
+    border: solid 1px;
+    padding: 2% 2% 2% 2%;
+  }
+  
+  .post-container h2 {
+    margin: 0 0 2% 0;
+  }
+  

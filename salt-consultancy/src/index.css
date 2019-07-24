@@ -8,6 +8,9 @@ body {
   font-size: 15px;
 }
 
+html { height: 100%; overflow:auto; }
+body { height: 100%; }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

@@ -1,0 +1,7 @@
+.footing-container {
+    height: 300px;
+    width: 100%;
+    background-color: black;
+    position: relative;
+    bottom: 0px;
+  }
