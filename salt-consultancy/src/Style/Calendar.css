@@ -69,9 +69,7 @@
   font-weight: bold;
 }
 
-.notBooked:hover {
-  background-color:rgba(211, 211, 211, 0.297);
-}
+
 .buttons button {
   border-radius: 3px;
   background-color: white;
@@ -92,6 +90,22 @@
   background-color: rgb(119, 227, 83);
   color: white;
 }
+.userBook:hover {
+  background-color:hsla(0, 85%, 55%, 0.646);
+}
+.userBook:hover .showDate {
+  display: none;
+}
+
+.unBookDate {
+  display: none;
+}
+
+.userBook:hover .unBookDate{
+  display: inline;
+}
+
+
 
 .selected {
   background-color: lightblue;
@@ -99,6 +113,9 @@
 
 .notBooked {
   background-color: white;
+}
+.notBooked:hover {
+  background-color:hsla(0, 0%, 91%, 0.783);
 }
 .weekday {
   background-color: #05386b;

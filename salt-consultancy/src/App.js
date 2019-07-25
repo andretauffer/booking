@@ -1,4 +1,3 @@
-import React, { useRef } from 'react';
 import './Style/App.css';
 import './Style/About.css';
 import './Style/Projects.css';
@@ -9,6 +8,8 @@ import './Style/Booking.css';
 import './Style/Parallax.css';
 import './Style/Login.css';
 import './Style/Legend.css';
+import './Style/Navbar.css';
+import React, { useRef } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import { CookiesProvider } from 'react-cookie';
 import Home from './components/Home';

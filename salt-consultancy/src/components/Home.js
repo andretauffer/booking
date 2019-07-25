@@ -11,7 +11,7 @@ const Home = (props) => {
         <Jumbotron className="jumbotron">
           <h1>Salt Consultancy</h1>
           <p>
-            Highly skilled node.js professionals available for short term assignments.
+            Highly skilled Full-Stack JavaScript professionals available for short term assignments.
           </p>
           <p>
             <Button onClick={() => scrollToRef(props.book)} className="jt-btn" variant="primary">Book now</Button>

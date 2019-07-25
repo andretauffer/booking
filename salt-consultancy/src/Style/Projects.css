@@ -13,3 +13,33 @@
 .post-container h2 {
   margin: 0 0 2% 0;
 }
+
+ .post-content{
+  display: flex;
+  flex-flow: row nowrap;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.post-content p {
+  padding: 0 10% 0 10%;
+}
+
+
+/*.post-content > img{
+  grid-area: img;
+  width: 350px;
+}
+
+.post-content > p{
+  grid-area: par;
+  column-span: all;
+  max-width: 350px;
+} */
+
+@media (max-width: 800px) {
+  .post-container{
+    max-height: 200px;
+    overflow: scroll;
+  }
+}

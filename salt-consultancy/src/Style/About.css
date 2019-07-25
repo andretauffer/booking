@@ -16,3 +16,14 @@
     margin-top: 60px;
 
   }
+
+  @media (max-width: 800px) {
+    .about-container{
+      display:flex;
+      flex-flow: column nowrap;
+      overflow: scroll;
+    }
+    .about-text{
+      margin: 0 auto;
+    }
+  }

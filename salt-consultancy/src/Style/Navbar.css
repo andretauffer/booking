@@ -1,0 +1,8 @@
+.custNav {
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    /* background-color: rgb(20, 20, 20); */
+    z-index: 9999;
+    color: black;
+  }

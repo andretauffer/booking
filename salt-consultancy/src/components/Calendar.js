@@ -70,6 +70,7 @@ const Calendar = () => {
     } else {
       const bookText = document.querySelector('.booking-text');
       const bookInfo = document.querySelector('.booking-info');
+      const bookButtons = document.querySelector('.booking-buttons');
       if (!booking) {
         bookText.innerText = 'Do you want to unbook?';
         setunbookingId(id);
@@ -88,6 +89,7 @@ const Calendar = () => {
       <p>Cost of booking: ${selected.length * 1500}SEK excl taxes</p>
       <p>Do you want to book?</p>`;
       }
+      bookButtons.style.display = '';
       bookInfo.style.display = '';
     }
   }
@@ -111,12 +113,13 @@ const Calendar = () => {
       setYear(year - 1);
     }
     setMonth(newMonth);
-    resetSelection()
+    resetSelection();
   };
 
   const bookDays = async () => {
     const bookInfo = document.querySelector('.booking-info');
     const bookText = document.querySelector('.booking-text');
+    const bookButtons = document.querySelector('.booking-buttons');
     if (bookState) {
       let uri = '/api/updateCalendar';
       serverReq(uri, selected);
@@ -126,6 +129,7 @@ const Calendar = () => {
       serverReq(uri, [unbookingId]);
       bookText.innerText = 'Unbooking successful!'
     }
+    bookButtons.style.display = 'none';
     setTimeout(() => {
       bookInfo.style.display = 'none';
     }, 1500);
@@ -171,7 +175,7 @@ const Calendar = () => {
                   return <div className="weekend" key={i}>{dayData.day}</div>
                 } else {
                   if (dayData.thisUser) {
-                    return <div id={dayData.id} onClick={(e) => openConfirmation(0, dayData.id)} className="userBook" key={i}>{dayData.day}</div>
+                    return <div id={dayData.id} onClick={(e) => openConfirmation(0, dayData.id)} className="userBook" key={i}><span className="showDate">{dayData.day}</span><span className="unBookDate">Unbook?</span></div>
                   } else {
                     return <div className='booked' key={i}>{dayData.day}</div>
                   }
@@ -179,7 +183,7 @@ const Calendar = () => {
               }
             } else {
               if (dayData.thisUser) {
-                return <div className="userBook" key={i}>{dayData.day}</div>
+                return <div className="userBook" key={i}><span className="showDate">{dayData.day}</span><span className="unBookDate">Unbook?</span></div>
               } else {
                 return <div className="weekend" key={i}>{dayData.day}</div>
               }
@@ -194,8 +198,10 @@ const Calendar = () => {
       <div className='booking-info'>
         <h4>Booking info:</h4>
         <p className='booking-text'>Are you sure you want to unbook?</p>
+        <div className="booking-buttons">
         <button onClick={(e) => bookDays()}>Yes</button>
         <button>No</button>
+        </div>
       </div>
     </div>
   );

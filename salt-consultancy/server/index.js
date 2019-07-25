@@ -76,6 +76,24 @@ app.get('/api/getCalendar/:year/:month', async (req, res) => {
     res.send(JSON.stringify(month.rows));
 });
 
+app.get('/api/getUsername', async (req, res) => {
+    let token;
+    let aba;
+    let uID;
+
+    if(req.headers.cookie) {
+        token = req.headers.cookie;
+        aba = token.split('=');
+        jwt.verify(aba[1], 'secret', function(err, decoded) {
+            console.log(decoded)
+            uID = decoded.data;
+        });
+    }
+    let user = await client.query(`SELECT * FROM Users WHERE ID = ${uID}`);
+    console.log(user.rows);
+    res.send(JSON.stringify(user.rows[0].name));
+});
+
 app.post('/api/updateCalendar', async (req, res) => {
     const token = req.headers.cookie;
     const aba = token.split('=');

@@ -10,27 +10,6 @@ body {
   font-family: 'Roboto Mono', monospace;
 }
 
-/* .bg-transparent button {
-  border-radius: 25px;
-  background: lightgray;
-  width: 55px;
-  height: 20px;
-  font-size: 12px;
-} */
-
 .logo-container {
   overflow: hidden;
-}
-
-.custNav {
-  position: sticky;
-  top: 0px;
-  background-color: white;
-  /* background-color: rgb(20, 20, 20); */
-  z-index: 9999;
-  color: white;
-}
-
-.custNav button {
-  /* height: 40px; */
 }

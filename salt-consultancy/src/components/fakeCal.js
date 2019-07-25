@@ -18,7 +18,6 @@ const Calendar = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  const andre = useContext(AuthContext);
   let bookingText = '';
   const { state, dispatch } = useContext(CounterContext);
 
@@ -132,8 +131,6 @@ const Calendar = () => {
   }
 
   const serverReq = async (uri, days) => {
-    console.log(uri);
-    console.log(days);
     await fetch(uri, {
       method: 'post',
       headers: {

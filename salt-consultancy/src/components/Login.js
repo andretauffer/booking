@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { CounterContext } from './Context';
 import { useContext } from 'react';
@@ -10,8 +10,16 @@ const Login = () => {
   const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
   const [user, setUser] = useState();
   const { state, dispatch } = useContext(CounterContext);
-  
-  
+
+  useEffect(() => {
+    fetch('api/getUsername')
+      .then(response => response.json())
+      .then(data => {
+        setUser(data);
+      });
+  }, []);
+
+
   const handleChangeUsername = e => {
     setUsername(e.target.value);
   }
@@ -21,13 +29,13 @@ const Login = () => {
   }
 
   const logOut = () => {
-    dispatch({type: "logout"});
+    dispatch({ type: "logout" });
     removeCookie('user');
     setLoggedIn(false);
     setUsername();
     setPassword();
   }
- 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     fetch('/api/login', {
@@ -39,13 +47,12 @@ const Login = () => {
     }).then(response => response.json())
       .then(data => {
         if (data.login) {
-          dispatch({type: "login"});
+          dispatch({ type: "login" });
           setCookie('user', data.id);
           setUser(data.name);
           setLoggedIn(true);
         }
         if (!data.login) {
-          // setUser('');
           console.log(data.status);
         }
       });
@@ -64,13 +71,13 @@ const Login = () => {
     return (
       <div className="Welcome">
         <form onSubmit={handleSubmit}>
-          Username: 
+          Username:
         <input
             type="text"
             placeholder="Username"
             onChange={handleChangeUsername}
           />
-          Password: 
+          Password:
         <input
             type="password"
             placeholder="Password"
