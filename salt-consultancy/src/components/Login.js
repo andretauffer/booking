@@ -3,13 +3,14 @@ import { useCookies } from 'react-cookie';
 import { CounterContext } from './Context';
 import { useContext } from 'react';
 
+
 const Login = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['name']);
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
   const [loggedIn, setLoggedIn] = useState(cookies.user ? true : false);
   const [user, setUser] = useState();
-  const { state, dispatch } = useContext(CounterContext);
+  const { dispatch } = useContext(CounterContext);
 
   useEffect(() => {
     fetch('api/getUsername')
@@ -53,7 +54,16 @@ const Login = () => {
           setLoggedIn(true);
         }
         if (!data.login) {
-          console.log(data.status);
+          document.querySelector('.Welcome input').value = data.status;
+          document.querySelector('.Welcome input').style.backgroundColor = 'lightgray'
+        ;
+          document.querySelector('.Welcome [type="password"]').value = '';
+          setTimeout(() => {
+            document.querySelector('.Welcome input').value = '';
+          }, 2000);
+          setTimeout(() => {
+            document.querySelector('.Welcome input').style.backgroundColor = ''
+          }, 200);
         }
       });
   }

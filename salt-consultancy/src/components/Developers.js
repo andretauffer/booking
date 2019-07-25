@@ -12,7 +12,7 @@ const Developers = () => {
       <div ref={devRef} className='developers-container'>
         <div className="dev-container">
           <div className='developer'>
-            <img src="/img/andre.jpg"></img>
+            <img src="/img/andre.jpg" alt="Andre"></img>
             <div className='developer-info'>
               <h5>Andre Tauffer</h5>
 
@@ -20,7 +20,7 @@ const Developers = () => {
             </div>
           </div>
           <div className='developer'>
-            <img src="/img/christian.jpg"></img>
+            <img src="/img/christian.jpg" alt="Christian"></img>
             <div className='developer-info'>
               <h5>Christian Sandström</h5>
 
@@ -28,7 +28,7 @@ const Developers = () => {
             </div>
           </div>
           <div className='developer'>
-            <img src="/img/chris.jpg"></img>
+            <img src="/img/chris.jpg" alt="Christoffer"></img>
             <div className='developer-info'>
               <h5>Christoffer Sundqvist</h5>
 

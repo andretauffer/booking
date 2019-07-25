@@ -2,7 +2,6 @@ import React, {
   useState, useEffect, useContext
 } from 'react';
 import { useCookies } from 'react-cookie';
-import AuthContext from '../App';
 import { CounterContext } from './Context';
 
 
@@ -10,7 +9,7 @@ const Calendar = () => {
   const [calendar, setCalendar] = useState([]);
   const [selected, setSelected] = useState([]);
   const [unbookingId, setunbookingId] = useState([]);
-  const [cookies, setCookie, removeCookie] = useCookies(['name']);
+  const [cookies] = useCookies(['name']);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
   const [bookState, setBookState] = useState(0);
@@ -18,8 +17,7 @@ const Calendar = () => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  let bookingText = '';
-  const { state, dispatch } = useContext(CounterContext);
+  const { state } = useContext(CounterContext);
 
   useEffect(() => {
     document.querySelector('#prev').innerText = '<';
@@ -37,7 +35,7 @@ const Calendar = () => {
       .then(data => {
         setCalendar(appendDeadSpace(data));
       });
-  }, [month, cookies, state.count]);
+  }, [month, year, cookies, state.count]);
 
 
   const appendDeadSpace = data => {
@@ -75,29 +73,33 @@ const Calendar = () => {
         bookText.innerText = 'Do you want to unbook?';
         setunbookingId(id);
         setBookState(0);
+        bookButtons.style.display = '';
+        bookInfo.style.display = '';
       } else {
-        let textaaa = '';
-        selected.forEach(id => {
-          calendar.forEach(day => {
-            if (day.id === id) {
-              textaaa += `<br>${day.date}</br>`;
-            }
-          })
-        });
-        bookText.innerHTML = `
-      <p>Booked days: ${textaaa}</p>
-      <p>Cost of booking: ${selected.length * 1500}SEK excl taxes</p>
-      <p>Do you want to book?</p>`;
+        if (selected.length > 0) {
+          let textaaa = '';
+          selected.forEach(id => {
+            calendar.forEach(day => {
+              if (day.id === id) {
+                textaaa += `<br>${day.date}</br>`;
+              }
+            })
+          });
+          bookText.innerHTML = `
+        <p>Booked days: ${textaaa}</p>
+        <p>Cost of booking: ${selected.length * 1500}SEK excl taxes</p>
+        <p>Do you want to book?</p>`;
+          bookButtons.style.display = '';
+          bookInfo.style.display = '';
+        }
       }
-      bookButtons.style.display = '';
-      bookInfo.style.display = '';
     }
   }
 
   const resetSelection = () => {
     setSelected([]);
     const selectedDivs = Array.from(document.querySelectorAll('.selected'));
-    selectedDivs.map(el => {
+    selectedDivs.forEach(el => {
       el.className = 'notBooked';
     })
   }
@@ -188,6 +190,7 @@ const Calendar = () => {
                 return <div className="weekend" key={i}>{dayData.day}</div>
               }
             }
+          return '';
           })}
         </div>
         <button id="next" onClick={() => changeMonth(1)}>Next month</button>
@@ -199,8 +202,8 @@ const Calendar = () => {
         <h4>Booking info:</h4>
         <p className='booking-text'>Are you sure you want to unbook?</p>
         <div className="booking-buttons">
-        <button onClick={(e) => bookDays()}>Yes</button>
-        <button>No</button>
+          <button onClick={(e) => bookDays()}>Yes</button>
+          <button>No</button>
         </div>
       </div>
     </div>

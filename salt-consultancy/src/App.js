@@ -10,7 +10,7 @@ import './Style/Login.css';
 import './Style/Legend.css';
 import './Style/Navbar.css';
 import React, { useRef } from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { CookiesProvider } from 'react-cookie';
 import Home from './components/Home';
 import About from './components/About';
@@ -21,15 +21,6 @@ import CustomNavbar from './components/Navbar';
 import Footing from './components/Footing'
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { CounterProvider } from './components/Context';
-import { tsPropertySignature } from '@babel/types';
-
-export const AuthContext = React.createContext({
-  user: null,
-  isAuthenticated: null,
-  currentMonth: [new Date().getMonth() + 1, new Date().getFullYear()]
-});
-
-
 
 function App() {
 
@@ -42,7 +33,6 @@ function App() {
   return (
     <CookiesProvider>
       <BrowserRouter>
-        <AuthContext.Provider>
           <ParallaxProvider>
             <CounterProvider>
               <div className="custNav">
@@ -56,7 +46,6 @@ function App() {
               <Footing />
             </CounterProvider>
           </ParallaxProvider>
-        </AuthContext.Provider>
       </BrowserRouter>
     </CookiesProvider>
 

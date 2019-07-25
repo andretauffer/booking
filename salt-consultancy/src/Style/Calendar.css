@@ -105,7 +105,13 @@
   display: inline;
 }
 
+.calendar:hover {
+  cursor: pointer;
+}
 
+.weekend:hover {
+  cursor: not-allowed;
+}
 
 .selected {
   background-color: lightblue;
@@ -142,6 +148,8 @@
 
   .calendar-container h3 {
     font-size: 20px;
+    justify-content: center;
+    align-items: center;
   }
   /* #prev{
     margin: 0 0 0 5%;
