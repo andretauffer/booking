@@ -185,7 +185,7 @@ const Calendar = () => {
               }
             } else {
               if (dayData.thisUser) {
-                return <div className="userBook" key={i}><span className="showDate">{dayData.day}</span><span className="unBookDate">Unbook?</span></div>
+                return <div className="userBook" key={i}>{dayData.day}</div>
               } else {
                 return <div className="weekend" key={i}>{dayData.day}</div>
               }

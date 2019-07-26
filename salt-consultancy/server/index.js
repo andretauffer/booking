@@ -4,6 +4,7 @@ const { Client } = require('pg');
 const bodyParser = require('body-parser')
 const dbsetup = require('./db_setup');
 const jwt = require ('jsonwebtoken');
+const app = express();
 
 const client = new Client({
     host: 'localhost',
@@ -20,10 +21,6 @@ const connect = async () => {
         console.log('error', e);
     }
 };
-
-const app = express();
-
-// Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(bodyParser.json());
 
@@ -31,17 +28,12 @@ app.post('/api/login', async (req, res) => {
     let user = await client.query('SELECT * FROM Users WHERE username = $1', [req.body.username]);
     if (user.rows.length > 0) {
         if (user.rows[0].password === req.body.password) {
-
             const token = jwt.sign({
                 data: user.rows[0].id
             }, 'secret', { expiresIn: 60 * 60 });
-
             const retVal = { login: 1, id: token, name: user.rows[0].name }
-
             res.send(JSON.stringify(retVal));
-            console.log('Login Successfull');
-        }
-        else {
+        } else {
             const retVal = { login: 0, status: 'Invalid Password' }
             res.send(JSON.stringify(retVal));
         }
@@ -55,12 +47,10 @@ app.get('/api/getCalendar/:year/:month', async (req, res) => {
     let token;
     let aba;
     let uID;
-
     if(req.headers.cookie) {
         token = req.headers.cookie;
         aba = token.split('=');
         jwt.verify(aba[1], 'secret', function(err, decoded) {
-            console.log(decoded)
             uID = decoded.data;
         });
     }
@@ -80,17 +70,14 @@ app.get('/api/getUsername', async (req, res) => {
     let token;
     let aba;
     let uID;
-
     if(req.headers.cookie) {
         token = req.headers.cookie;
         aba = token.split('=');
         jwt.verify(aba[1], 'secret', function(err, decoded) {
-            console.log(decoded)
             uID = decoded.data;
         });
     }
     let user = await client.query(`SELECT * FROM Users WHERE ID = ${uID}`);
-    console.log(user.rows);
     res.send(JSON.stringify(user.rows[0].name));
 });
 
@@ -100,7 +87,6 @@ app.post('/api/updateCalendar', async (req, res) => {
     let uID;
      jwt.verify(aba[1], 'secret', function(err, decoded) {
         uID = decoded.data;
-        console.log(decoded)
     });
     const change = req.body;
     await change.days.forEach(id => {
@@ -122,7 +108,6 @@ app.post('/api/removeBooking', async (req, res) => {
     let uID;
     jwt.verify(aba[1], 'secret', function(err, decoded) {
         uID = decoded.data;
-        console.log(decoded)
     });
     const change = req.body;
     await change.days.forEach(id => {
@@ -140,7 +125,6 @@ app.post('/api/removeBooking', async (req, res) => {
 
 app.use('/db', dbsetup);
 
-// Handles any requests that don't match the ones above
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });

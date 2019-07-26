@@ -20,3 +20,10 @@
   font-size: 15px;
   margin-bottom: 10px;
 }
+
+@media only screen and (min-width: 768px) {
+  /* For desktop */
+  .jumbotron p {
+    font-size: 28px;
+  }
+}

@@ -16,7 +16,7 @@ const Developers = () => {
             <div className='developer-info'>
               <h5>Andre Tauffer</h5>
 
-              <p>JavaScript | MongoDB | Express | Git | HTML | Handlebars | CSS | Mocha | PostgreSQL</p>
+              <p>JavaScript | Node.js | Express | Git | React | MongoDB | CSS | Mocha | PostgreSQL</p>
             </div>
           </div>
           <div className='developer'>
@@ -24,7 +24,7 @@ const Developers = () => {
             <div className='developer-info'>
               <h5>Christian Sandström</h5>
 
-              <p>JavaScript | MongoDB | Express | Git | HTML | Handlebars | CSS | Mocha | PostgreSQL</p>
+              <p>JavaScript | Node.js | Express | Git | React | MongoDB | CSS | Mocha | PostgreSQL</p>
             </div>
           </div>
           <div className='developer'>
@@ -32,7 +32,7 @@ const Developers = () => {
             <div className='developer-info'>
               <h5>Christoffer Sundqvist</h5>
 
-              <p>JavaScript | MongoDB | Express | Git | HTML | Handlebars | CSS | Mocha | PostgreSQL</p>
+              <p>JavaScript | Node.js | Express | Git | React | MongoDB | CSS | Mocha | PostgreSQL</p>
             </div>
           </div>
         </div>
