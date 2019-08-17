@@ -1,4 +1,13 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A booking system that manages and displays bookings in a calendar. It contains a sign in function and multiple user roles. 
+
+## How to use
+
+-Install docker
+-$ docker run --name salt-consultancy -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres
+-$ docker start salt-consultancy
+-$ npm run server
+-$ npm start
+
 
 ## Available Scripts
 
